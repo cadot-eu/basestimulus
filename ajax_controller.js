@@ -20,10 +20,16 @@ export default class extends Controller {
             wait: 500
         }
     ]
-    static targets = ['retourAjax'] //div de destination de l'html, définis par <div data-ajax-target="retourAjax"></div>
-    static values = {// 
+    /* -------------------------------------------------------------------------- */
+    /*                              variable and use                              */
+    /* -------------------------------------------------------------------------- */
+    static targets = ['retourAjax'] //  div of destination <div data-ajax-target="retourAjax"></div>
+    static values = {               //  url of ajax
         ajaxUrl: String,
     }
+    /* -------------------------------------------------------------------------- */
+    /*                                    code                                    */
+    /* -------------------------------------------------------------------------- */
     connect() {
         useDebounce(this, { wait: 100 })
     }

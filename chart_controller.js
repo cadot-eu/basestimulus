@@ -3,3 +3,8 @@ import Chart from 'stimulus-chartjs'
 
 const application = Application.start()
 application.register('chart', Chart)
+
+/* -------------------------------------------------------------------------- */
+/*                                  variables                                 */
+/* -------------------------------------------------------------------------- */
+// data-chart-data-value=...

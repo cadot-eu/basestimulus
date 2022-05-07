@@ -11,11 +11,14 @@ export default class extends Controller {
     static values = {
         options: Object
     }
+    /* -------------------------------------------------------------------------- */
+    /*                              uses and variable                             */
+    /* -------------------------------------------------------------------------- */
 
     connect() {
         this.swiper = new Swiper(this.element, {
-            ...this.defaultOptions,
-            ...this.optionsValue
+            ...this.defaultOptions, // options de base
+            ...this.optionsValue // écrase les options en ajoutant  data-loader-options-value
         })
     }
     open(event) {

@@ -6,6 +6,11 @@ import BuildEditor from '/assets/ckeditor/build/ckeditor';
 //utiliser /assets/ckeditor/src/ckeditor.js
 export default class extends Controller {
 
+    /* -------------------------------------------------------------------------- */
+    /*                                  variable                                  */
+    /* -------------------------------------------------------------------------- */
+    // for choice template of toolbar
+
     static values = {
         toolbar: String
     }

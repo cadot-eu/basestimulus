@@ -6,7 +6,12 @@ export default class extends Controller {
     static values = {
         options: Object
     }
-    connect(event) {
+    /* -------------------------------------------------------------------------- */
+    /*                                     use                                    */
+    /* -------------------------------------------------------------------------- */
+    //bPsrc en attribut pour le src du full screen sinon prend le src
+
+    connect() {
         //on change l'icone de l'élément
         this.element.style.cursor = "ne-resize"
         this.element.onclick = function () {

@@ -3,9 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 import Swiper from 'swiper/bundle';
 // import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import 'swiper/css/bundle';
 export default class extends Controller {
 
     static values = {

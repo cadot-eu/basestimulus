@@ -94,7 +94,7 @@ function simple(e) {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData().replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -151,7 +151,7 @@ function simplelanguage(e) {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData().replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {

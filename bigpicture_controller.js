@@ -6,14 +6,15 @@ import BigPicture from "bigpicture";
 export default class extends Controller {
 
     static values = {
-        options: Object
+        options: Object,
+        pointer: String
     }
     /* -------------------------------------------------------------------------- */
     /*                                     use                                    */
     /* -------------------------------------------------------------------------- */
     connect() {
         let options = this.optionsValue //data-base--bigpicture-options-value
-        this.element.style.cursor = "ne-resize"
+        this.element.style.cursor = this.pointerValue ? this.pointerValue : "ne-resize"
         this.element.onclick = function () {
             BigPicture(
                 {

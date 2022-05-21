@@ -25,7 +25,9 @@ export default class extends Controller {
             this.editor = normal(this.element);
         if (this.toolbarValue == 'simple')
             this.editor = simple(this.element);
-
+        //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
+        if (this.element.type == 'text')
+            this.element.required = false
     }
     disconnect() {
 

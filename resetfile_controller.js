@@ -11,14 +11,18 @@ export default class extends Controller {
     etat = false;
     hidden = null;
     connect() {
-        let span = document.createElement('span');
+
         let hidden = document.createElement('input');
         hidden.type = 'hidden';
         hidden.value = "à retirer";
         hidden.name = this.nomValue;
+
+        let span = document.createElement('span');
+        span.title = "cliquer pour supprimer le fichier"
         span.style.color = "red";
         span.style.paddingRight = ".5rem";
         span.innerHTML = '<i class="bi bi-x-square"></i>';
+
         this.element.prepend(span);
         span.addEventListener("click", function () {
             if (!this.etat) {

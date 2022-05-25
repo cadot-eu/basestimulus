@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import BigPicture from "bigpicture";
 //example
 //<div data-controller="base--bigpicture" data-base--bigpicture-options-value='{"ytSrc": "P2pny4Nvojw"}' >
+//data-controller='base--bigpicture' data-base--bigpicture-options-value='{"imgSrc": "{{asset(Carousel.image)}}"}'
 
 export default class extends Controller {
 

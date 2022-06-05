@@ -19,12 +19,13 @@ export default class extends Controller {
         this.element.id = uniqid
         if (this.toolbarValue == 'full')
             this.editor = full(this.element);
-        if (this.toolbarValue == 'simplelanguage')
+        else if (this.toolbarValue == 'simplelanguage')
             this.editor = simplelanguage(this.element);
-        if (this.toolbarValue == 'normal')
+        else if (this.toolbarValue == 'normal')
             this.editor = normal(this.element);
-        if (this.toolbarValue == 'simple')
+        else if (this.toolbarValue == 'simple')
             this.editor = simple(this.element);
+        else this.editor = protect(this.element)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text')
             this.element.required = false
@@ -34,7 +35,78 @@ export default class extends Controller {
     }
 }
 
-
+function protect(e) {
+    return BuildEditor.create(e,
+        {
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                ]
+            },
+            highlight: {
+                options: [
+                    {
+                        model: 'Marker',
+                        class: '',
+                        title: 'Marqueur',
+                        type: 'marker'
+                    }
+                ]
+            },
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'imageUpload',
+                    'blockQuote',
+                    'insertTable',
+                    'mediaEmbed',
+                    'undo',
+                    'redo',
+                    'alignment',
+                    'horizontalLine',
+                    'imageInsert',
+                    'pageBreak',
+                    'removeFormat',
+                    'specialCharacters',
+                    'strikethrough',
+                    'subscript',
+                    'superscript',
+                    'textPartLanguage',
+                    'todoList',
+                    'underline',
+                    '|'
+                ]
+            },
+            language: 'fr'
+        })
+        .then(editor => {
+            editor.setData(e.value)
+            editor.editing.view.document.on('clipboardInput', (evt, data) => {
+                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            });
+            editor.model.document.on('change:data', () => {
+                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+            });
+        })
+        .catch(error => {
+            console.error(error.stack);
+        });
+}
 function simple(e) {
     return BuildEditor.create(e,
         {

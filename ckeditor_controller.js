@@ -96,9 +96,9 @@ function protect(e) {
         })
         .then(editor => {
             editor.setData(e.value)
-            editor.editing.view.document.on('clipboardInput', (evt, data) => {
-                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            });
+            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
+            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            // });
             editor.model.document.on('change:data', () => {
                 e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
@@ -273,9 +273,9 @@ function normal(e) {
         })
         .then(editor => {
             editor.setData(e.value)
-            editor.editing.view.document.on('clipboardInput', (evt, data) => {
-                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            });
+            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
+            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            // });
             editor.model.document.on('change:data', () => {
                 e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
@@ -294,7 +294,7 @@ function full(e) {
         },
         simpleUpload: {
             // The URL that the images are uploaded to.
-            uploadUrl: "/upload/toto",
+            uploadUrl: "/upload/imagefull",
 
             // Enable the XMLHttpRequest.withCredentials property if required.
             withCredentials: false,

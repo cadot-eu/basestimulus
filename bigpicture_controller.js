@@ -15,8 +15,9 @@ export default class extends Controller {
     /*                                     use                                    */
     /* -------------------------------------------------------------------------- */
     connect() {
+
         let options = this.optionsValue //data-base--bigpicture-options-value
-        this.element.style.cursor = this.pointerValue ? this.pointerValue : "ne-resize"
+        this.element.style.cursor = this.pointerValue ? this.pointerValue : "pointer"
         /* ---------------------------------- alias --------------------------------- */
         if (this.aliasValue == "gallery")
             if (this.element.id != '')

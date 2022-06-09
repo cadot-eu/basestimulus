@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import BigPicture from "bigpicture";
+
 //example
 //<div data-controller="base--bigpicture" data-base--bigpicture-options-value='{"ytSrc": "P2pny4Nvojw"}' >
 //data-controller='base--bigpicture' data-base--bigpicture-options-value='{"imgSrc": "{{asset(Carousel.image)}}"}'
@@ -15,7 +16,6 @@ export default class extends Controller {
     /*                                     use                                    */
     /* -------------------------------------------------------------------------- */
     connect() {
-
         let options = this.optionsValue //data-base--bigpicture-options-value
         this.element.style.cursor = this.pointerValue ? this.pointerValue : "pointer"
         /* ---------------------------------- alias --------------------------------- */
@@ -32,6 +32,7 @@ export default class extends Controller {
                     ...options // écrase les options en ajoutant  data-base--bigpicture-options-value
                 }
             );
+            document.querySelector('#bp_caption').style('opacity', 1)
         };
 
     }

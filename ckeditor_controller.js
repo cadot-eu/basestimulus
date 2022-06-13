@@ -12,20 +12,22 @@ export default class extends Controller {
     // for choice template of toolbar
 
     static values = {
-        toolbar: String
+        toolbar: String,
+        upload: { type: String, default: 'simpleimage' }
     }
+
+
     connect() {
-        let uniqid = (new Date()).getTime();
-        this.element.id = uniqid
+
         if (this.toolbarValue == 'full')
-            this.editor = full(this.element);
+            this.editor = full(this);
         else if (this.toolbarValue == 'simplelanguage')
-            this.editor = simplelanguage(this.element);
+            this.editor = simplelanguage(this);
         else if (this.toolbarValue == 'normal')
-            this.editor = normal(this.element);
+            this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
-            this.editor = simple(this.element);
-        else this.editor = protect(this.element)
+            this.editor = simple(this);
+        else this.editor = protect(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text')
             this.element.required = false
@@ -36,7 +38,7 @@ export default class extends Controller {
 }
 
 function protect(e) {
-    return BuildEditor.create(e,
+    return BuildEditor.create(e.element,
         {
             heading: {
                 options: [
@@ -92,15 +94,27 @@ function protect(e) {
                     '|'
                 ]
             },
+            simpleUpload: {
+                // The URL that the images are uploaded to.
+                uploadUrl: "/upload/" + e.uploadValue,
+                // Enable the XMLHttpRequest.withCredentials property if required.
+                withCredentials: false,
+
+                // Headers sent along with the XMLHttpRequest to the upload server.
+                headers: {
+                    "X-CSRF-TOKEN": "CSFR-Token",
+                    Authorization: "Bearer [JSON Web Token]"
+                },
+            },
             language: 'fr'
         })
         .then(editor => {
-            editor.setData(e.value)
+            editor.setData(e.element.value)
             // editor.editing.view.document.on('clipboardInput', (evt, data) => {
             //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             // });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -108,7 +122,7 @@ function protect(e) {
         });
 }
 function simple(e) {
-    return BuildEditor.create(e,
+    return BuildEditor.create(e.element,
         {
             restrictedEditing: {
                 allowedCommands: ['highlight',
@@ -144,12 +158,12 @@ function simple(e) {
             }
         })
         .then(editor => {
-            editor.setData(e.value)
+            editor.setData(e.element.value)
             editor.editing.view.document.on('clipboardInput', (evt, data) => {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -157,7 +171,7 @@ function simple(e) {
         });
 }
 function simplelanguage(e) {
-    return BuildEditor.create(e,
+    return BuildEditor.create(e.element,
         {
             restrictedEditing: {
                 allowedCommands: ['highlight',
@@ -200,12 +214,12 @@ function simplelanguage(e) {
             },
         })
         .then(editor => {
-            editor.setData(e.value)
+            editor.setData(e.element.value)
             editor.editing.view.document.on('clipboardInput', (evt, data) => {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -213,7 +227,7 @@ function simplelanguage(e) {
         });
 }
 function normal(e) {
-    return BuildEditor.create(e,
+    return BuildEditor.create(e.element,
         {
             heading: {
                 options: [
@@ -269,15 +283,27 @@ function normal(e) {
                     '|'
                 ]
             },
+            simpleUpload: {
+                // The URL that the images are uploaded to.
+                uploadUrl: "/upload/" + e.uploadValue,
+                // Enable the XMLHttpRequest.withCredentials property if required.
+                withCredentials: false,
+
+                // Headers sent along with the XMLHttpRequest to the upload server.
+                headers: {
+                    "X-CSRF-TOKEN": "CSFR-Token",
+                    Authorization: "Bearer [JSON Web Token]"
+                },
+            },
             language: 'fr'
         })
         .then(editor => {
-            editor.setData(e.value)
+            editor.setData(e.element.value)
             // editor.editing.view.document.on('clipboardInput', (evt, data) => {
             //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             // });
             editor.model.document.on('change:data', () => {
-                e.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -294,8 +320,7 @@ function full(e) {
         },
         simpleUpload: {
             // The URL that the images are uploaded to.
-            uploadUrl: "/upload/imagefull",
-
+            uploadUrl: "/upload/" + e.uploadValue,
             // Enable the XMLHttpRequest.withCredentials property if required.
             withCredentials: false,
 
@@ -303,7 +328,7 @@ function full(e) {
             headers: {
                 "X-CSRF-TOKEN": "CSFR-Token",
                 Authorization: "Bearer [JSON Web Token]"
-            }
+            },
         },
     })
 }

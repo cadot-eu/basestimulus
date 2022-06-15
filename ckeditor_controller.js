@@ -296,7 +296,12 @@ function normal(e) {
                     Authorization: "Bearer [JSON Web Token]"
                 },
             },
-            language: 'fr'
+            language: {
+                textPartLanguage: [
+                    { title: 'French', languageCode: 'fr' },
+                    { title: 'Anglais', languageCode: 'en' }
+                ]
+            },
         })
         .then(editor => {
             editor.setData(e.element.value)

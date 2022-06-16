@@ -1,5 +1,8 @@
 import { Controller } from '@hotwired/stimulus'
 import BuildEditor from '/assets/ckeditor/build/ckeditor';
+
+
+
 /* ---------------- transformation des textareas en fckeditor --------------- */
 //fckeditor se modifie ici à partir de la version téléchargé de l'online builder
 //pour avoir la version complète de la toolbar et des plugins
@@ -18,11 +21,12 @@ export default class extends Controller {
 
 
     connect() {
-
         if (this.toolbarValue == 'full')
             this.editor = full(this);
         else if (this.toolbarValue == 'simplelanguage')
             this.editor = simplelanguage(this);
+        else if (this.toolbarValue == 'vide')
+            this.editor = vide(this);
         else if (this.toolbarValue == 'normal')
             this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
@@ -67,6 +71,7 @@ function protect(e) {
                     'bold',
                     'italic',
                     'link',
+                    'anchor',
                     'bulletedList',
                     'numberedList',
                     '|',
@@ -113,6 +118,33 @@ function protect(e) {
             // editor.editing.view.document.on('clipboardInput', (evt, data) => {
             //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             // });
+            editor.model.document.on('change:data', () => {
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+            });
+        })
+        .catch(error => {
+            console.error(error.stack);
+        });
+}
+function vide(e) {
+    return BuildEditor.create(e.element,
+        {
+            restrictedEditing: {
+                allowedCommands: ['highlight',
+                    'specialCharacters',],
+                allowedAttributes: ['highlight',
+                    'specialCharacters']
+            },
+            toolbar: {
+                items: [
+                ]
+            }
+        })
+        .then(editor => {
+            editor.setData(e.element.value)
+            editor.editing.view.document.on('clipboardInput', (evt, data) => {
+                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            });
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
@@ -271,6 +303,7 @@ function normal(e) {
                     'insertTable',
                     'mediaEmbed',
                     'link',
+                    'anchor',
                     'todoList',
                     'undo',
                     'redo',

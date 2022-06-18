@@ -31,7 +31,7 @@ export default class extends Controller {
             this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
             this.editor = simple(this);
-        else this.editor = protect(this)
+        else this.editor = normal(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text')
             this.element.required = false
@@ -41,91 +41,7 @@ export default class extends Controller {
     }
 }
 
-function protect(e) {
-    return BuildEditor.create(e.element,
-        {
-            heading: {
-                options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
-                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-                ]
-            },
-            highlight: {
-                options: [
-                    {
-                        model: 'Marker',
-                        class: '',
-                        title: 'Marqueur',
-                        type: 'marker'
-                    }
-                ]
-            },
-            toolbar: {
-                items: [
-                    'heading',
-                    '|',
-                    'bold',
-                    'italic',
-                    'link',
-                    'anchor',
-                    'bulletedList',
-                    'numberedList',
-                    '|',
-                    'outdent',
-                    'indent',
-                    '|',
-                    'imageUpload',
-                    'blockQuote',
-                    'insertTable',
-                    'mediaEmbed',
-                    'undo',
-                    'redo',
-                    'alignment',
-                    'horizontalLine',
-                    'imageInsert',
-                    'pageBreak',
-                    'removeFormat',
-                    'specialCharacters',
-                    'strikethrough',
-                    'subscript',
-                    'superscript',
-                    'textPartLanguage',
-                    'todoList',
-                    'underline',
-                    '|'
-                ]
-            },
-            simpleUpload: {
-                // The URL that the images are uploaded to.
-                uploadUrl: "/upload/" + e.uploadValue,
-                // Enable the XMLHttpRequest.withCredentials property if required.
-                withCredentials: false,
 
-                // Headers sent along with the XMLHttpRequest to the upload server.
-                headers: {
-                    "X-CSRF-TOKEN": "CSFR-Token",
-                    Authorization: "Bearer [JSON Web Token]"
-                },
-            },
-            language: 'fr'
-        })
-        .then(editor => {
-            editor.setData(e.element.value)
-            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
-            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            // });
-            editor.model.document.on('change:data', () => {
-                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
-            });
-        })
-        .catch(error => {
-            console.error(error.stack);
-        });
-}
 function vide(e) {
     return BuildEditor.create(e.element,
         {

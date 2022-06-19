@@ -8,10 +8,15 @@ export default class extends Controller {
     }
 
     connect() {
-        console.log(this.testValue)
+        document.querySelectorAll('.modal-backdrop').forEach(element => {
+            element.remove()
+            document.querySelector('body').style = 'overflow:auto;padding-right:0;'
+        });
         const formulaire = new Modal(this.element);
-        if (this.testValue == "1")
+        if (this.testValue == true) {
             formulaire.show();
+        }
+
     }
 }
 

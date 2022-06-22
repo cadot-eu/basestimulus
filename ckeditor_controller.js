@@ -31,7 +31,7 @@ export default class extends Controller {
             this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
             this.editor = simple(this);
-        else this.editor = normal(this)
+        else this.editor = vide(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text' && this.toolbarValue != 'vide')
             this.element.required = false

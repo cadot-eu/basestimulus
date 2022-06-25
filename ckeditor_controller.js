@@ -325,7 +325,7 @@ function toolbar(editor) {
         sub.type = "submit"
         sub.classList.add('btn', 'btn-primary', 'mt-5', 'fixed-top', 'w-25', 'ms-auto')
         sub.textContent = "Envoyer"
-        document.body.appendChild(sub)
+        document.getElementsByTagName('form')[0].appendChild(sub)
 
     }
 }

@@ -11,8 +11,8 @@ export default class extends Controller {
 
 
     connect() {
-        if (this.codeValue == 'm@cadot.eu') {
-            this.element.setAttribute('disabled', true)
+        if (this.codeValue != 'm@cadot.eu') {
+            this.element.setAttribute('readonly', true)
         }
     }
 

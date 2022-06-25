@@ -303,6 +303,25 @@ function full(e) {
             },
         },
     })
+        .then(editor => {
+            editor.setData(e.element.value)
+            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
+            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            // });
+            editor.model.document.on('change:data', () => {
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+            });
+            if (editor.sourceElement.getAttribute('classEditor')) {
+                var toolbarfixed = document.createElement('div')
+                toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
+                toolbarfixed.appendChild(editor.ui.view.toolbar.element)
+                console.log(document.body.appendChild(toolbarfixed))
+            }
+        })
+        .catch(error => {
+            console.error(error.stack);
+        });
+
 }
 
 

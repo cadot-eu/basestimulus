@@ -271,12 +271,8 @@ function normal(e) {
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
-            if (editor.sourceElement.getAttribute('classEditor')) {
-                var toolbarfixed = document.createElement('div')
-                toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
-                toolbarfixed.appendChild(editor.ui.view.toolbar.element)
-                console.log(document.body.appendChild(toolbarfixed))
-            }
+
+            toolbar(editor)
         })
         .catch(error => {
             console.error(error.stack);
@@ -311,17 +307,26 @@ function full(e) {
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
-            if (editor.sourceElement.getAttribute('classEditor')) {
-                var toolbarfixed = document.createElement('div')
-                toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
-                toolbarfixed.appendChild(editor.ui.view.toolbar.element)
-                console.log(document.body.appendChild(toolbarfixed))
-            }
+            toolbar(editor)
         })
         .catch(error => {
             console.error(error.stack);
         });
 
 }
+function toolbar(editor) {
+    if (editor.sourceElement.getAttribute('classEditor')) {
+        var toolbarfixed = document.createElement('div')
+        toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
+        toolbarfixed.appendChild(editor.ui.view.toolbar.element)
+        document.body.appendChild(toolbarfixed)
+        document.body.classList.add('pb-5')
+        var sub = document.createElement('button')
+        sub.type = "submit"
+        sub.classList.add('btn', 'btn-primary', 'mt-5', 'fixed-top', 'w-25', 'ms-auto')
+        sub.textContent = "Envoyer"
+        document.body.appendChild(sub)
 
+    }
+}
 

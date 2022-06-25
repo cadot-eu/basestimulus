@@ -18,6 +18,7 @@ export default class extends Controller {
             }
             else
                 element.after(data[key].split('¤')[0].split('/').at(-1))
+            element.setAttribute('exurl', '/' + data[key])
         });
     }
 

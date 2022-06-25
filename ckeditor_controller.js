@@ -21,6 +21,7 @@ export default class extends Controller {
 
 
     connect() {
+
         if (this.toolbarValue == 'full')
             this.editor = full(this);
         else if (this.toolbarValue == 'simplelanguage')
@@ -35,7 +36,9 @@ export default class extends Controller {
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text' && this.toolbarValue != 'vide')
             this.element.required = false
+
     }
+
     disconnect() {
 
     }
@@ -268,6 +271,12 @@ function normal(e) {
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
+            if (editor.sourceElement.getAttribute('classEditor')) {
+                var toolbarfixed = document.createElement('div')
+                toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
+                toolbarfixed.appendChild(editor.ui.view.toolbar.element)
+                console.log(document.body.appendChild(toolbarfixed))
+            }
         })
         .catch(error => {
             console.error(error.stack);

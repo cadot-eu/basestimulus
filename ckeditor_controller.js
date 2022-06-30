@@ -32,6 +32,8 @@ export default class extends Controller {
             this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
             this.editor = simple(this);
+        else if (this.toolbarValue == 'string')
+            this.editor = string(this);
         else this.editor = vide(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
         if (this.element.type == 'text' && this.toolbarValue != 'vide')
@@ -45,7 +47,7 @@ export default class extends Controller {
 }
 
 
-function vide(e) {
+function string(e) {
     return BuildEditor.create(e.element,
         {
             restrictedEditing: {
@@ -60,12 +62,12 @@ function vide(e) {
             }
         })
         .then(editor => {
-            editor.setData(e.element.value)
+            editor.setData(e.element.getData('text/plain'))
             editor.editing.view.document.on('clipboardInput', (evt, data) => {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData('text/plain');//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {

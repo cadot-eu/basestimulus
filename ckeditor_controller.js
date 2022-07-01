@@ -32,12 +32,8 @@ export default class extends Controller {
             this.editor = normal(this);
         else if (this.toolbarValue == 'simple')
             this.editor = simple(this);
-        else if (this.toolbarValue == 'string')
-            this.editor = string(this);
         else this.editor = vide(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
-        if (this.element.type == 'text' && this.toolbarValue != 'vide')
-            this.element.required = false
 
     }
 
@@ -47,7 +43,7 @@ export default class extends Controller {
 }
 
 
-function string(e) {
+function vide(e) {
     return BuildEditor.create(e.element,
         {
             restrictedEditing: {
@@ -62,12 +58,12 @@ function string(e) {
             }
         })
         .then(editor => {
-            editor.setData(e.element.getData('text/plain'))
+            editor.setData(e.element.value)
             editor.editing.view.document.on('clipboardInput', (evt, data) => {
                 data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
             });
             editor.model.document.on('change:data', () => {
-                e.element.value = editor.getData('text/plain');//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
+                e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
         })
         .catch(error => {
@@ -232,7 +228,6 @@ function normal(e) {
                     'insertTable',
                     'mediaEmbed',
                     'link',
-                    'anchor',
                     'todoList',
                     'undo',
                     'redo',
@@ -245,6 +240,9 @@ function normal(e) {
                     'textPartLanguage',
                     '|'
                 ]
+            },
+            mediaEmbed: {
+                // configuration...
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
@@ -265,6 +263,7 @@ function normal(e) {
                 ]
             },
         })
+
         .then(editor => {
             editor.setData(e.element.value)
             // editor.editing.view.document.on('clipboardInput', (evt, data) => {
@@ -275,6 +274,23 @@ function normal(e) {
             });
 
             toolbar(editor)
+            editor.on('clipboardInput', (evt, data) => {
+                console.log(evt)
+                const dataTransfer = data.dataTransfer;
+                const rtfContent = dataTransfer.getData('application/rtf');
+
+                // If no RTF was pasted, abort and let the clipboard feature handle the input.
+                if (!rtfContent) {
+                    return;
+                }
+
+                // Convert an RTF raw string to a view document fragment.
+                const viewContent = convertRtfStringToView(rtfContent);
+
+                // Pass the view fragment to the default clipboard input handler
+                // to allow further processing of the content.
+                data.content = viewContent;
+            });
         })
         .catch(error => {
             console.error(error.stack);

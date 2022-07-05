@@ -11,7 +11,7 @@ export default class extends Controller {
 
 
     connect() {
-        if (this.focusValue == true) {
+        if (this.focusValue) {
             this.element.focus();
             this.element.setSelectionRange(-1, -1)
         }

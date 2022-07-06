@@ -1,5 +1,5 @@
-// stimulus pour ajouter une class automatiquement quand l'élément apparait
-//possibilité d'ajouter une loopValue à true pour enlever la class quand l'élément disparait
+//stimulus qui permet quand l'élément apparait de lancer un form request pour append le résultats dans la page
+
 
 import { Controller } from '@hotwired/stimulus'
 import { useIntersection } from 'stimulus-use'
@@ -14,6 +14,7 @@ export default class extends Controller {
 
     connect() {
         useIntersection(this, this.options)
+
     }
 
     appear(entry) {

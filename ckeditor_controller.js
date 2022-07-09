@@ -209,6 +209,7 @@ function normal(e) {
             toolbar: {
                 items: [
                     'simplebox',
+                    'placeholder',
                     'heading',
                     'bold',
                     'italic',
@@ -224,7 +225,6 @@ function normal(e) {
                     'indent',
                     '|',
                     'imageUpload',
-                    'imageInsert',
                     'blockQuote',
                     'insertTable',
                     'mediaEmbed',

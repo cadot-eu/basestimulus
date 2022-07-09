@@ -208,6 +208,7 @@ function normal(e) {
             },
             toolbar: {
                 items: [
+                    'simplebox',
                     'heading',
                     'bold',
                     'italic',

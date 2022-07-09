@@ -4,9 +4,8 @@ import BuildEditor from '/assets/ckeditor/build/ckeditor';
 
 
 /* ---------------- transformation des textareas en fckeditor --------------- */
-//fckeditor se modifie ici à partir de la version téléchargé de l'online builder
-//pour avoir la version complète de la toolbar et des plugins
-//utiliser /assets/ckeditor/src/ckeditor.js
+// à copier dans assets/controllers et à modifier pour le site
+
 export default class extends Controller {
 
     /* -------------------------------------------------------------------------- */

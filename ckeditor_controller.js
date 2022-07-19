@@ -20,7 +20,6 @@ export default class extends Controller {
 
 
     connect() {
-
         if (this.toolbarValue == 'full')
             this.editor = full(this);
         else if (this.toolbarValue == 'simplelanguage')

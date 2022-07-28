@@ -52,6 +52,7 @@ function vide(e) {
             },
             toolbar: {
                 items: [
+
                 ]
             }
         })
@@ -100,7 +101,14 @@ function simple(e) {
             toolbar: {
                 items: [
                     'highlight',
-                    'specialCharacters'
+                    'specialCharacters',
+                    'alignment',
+                    'bulletedList',
+                    'numberedList',
+                    'horizontalLine',
+                    '|',
+                    'outdent',
+                    'indent',
                 ]
             }
         })
@@ -150,7 +158,14 @@ function simplelanguage(e) {
                 items: [
                     'highlight',
                     'specialCharacters',
-                    'textPartLanguage'
+                    'textPartLanguage',
+                    'alignment',
+                    'bulletedList',
+                    'numberedList',
+                    'horizontalLine',
+                    '|',
+                    'outdent',
+                    'indent',
                 ]
             },
             language: {

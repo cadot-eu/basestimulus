@@ -1,3 +1,4 @@
+/* A Stimulus controller that is used to debounce the input of a form and send the form if is modified. */
 import { Controller } from '@hotwired/stimulus'
 import { useDebounce } from 'stimulus-use'
 

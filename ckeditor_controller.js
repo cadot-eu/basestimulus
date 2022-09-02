@@ -4,7 +4,6 @@ import BuildEditor from '/assets/ckeditor/build/ckeditor';
 
 
 /* ---------------- transformation des textareas en fckeditor --------------- */
-// à copier dans assets/controllers et à modifier pour le site
 
 export default class extends Controller {
 

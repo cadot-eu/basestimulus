@@ -10,6 +10,9 @@ export default class extends Controller {
         entitie: String,
         fields: String,
         affichage: String,
+        champs: String,
+        copy: String,
+        copyurl: String,
         id: {
             type: String, default: 'id'
         }
@@ -42,19 +45,21 @@ export default class extends Controller {
         var select = document.createElement('select')
         select.setAttribute('size', this.limitValue)
         toolbarfixed.appendChild(select)
-        select.addEventListener('select', function (e) {
-            console.log(e)
+        select.addEventListener('change', function (e) {
+            console.log(this.value)
+
         })
         toolbarfixed.appendChild(select)
         toolbarfixed.classList.add('mt-5', 'fixed-top', 'w-25', 'me-auto')
         document.getElementsByTagName('form')[0].appendChild(toolbarfixed)
         input.addEventListener('input', function (e) {
-            //suppression des aniennes valeurs
+            //suppression des anciennes valeurs
             for (var i = 0; i < select.querySelectorAll('option').length; i++) {
                 select.remove(i);
             }
+            // $entitie, $champs, $recherche, $affichage, $copy, $limit
             $.ajax({
-                url: '/Admin/SelectAndCopy/' + that.entitieValue + '/' + that.recherche + '/' + that.fields + '/' + that.affichageValue + '/' + that.idValue + '/' + that.limitValue,
+                url: '/Admin/SelectAndCopy/' + that.entitieValue + '/' + that.champsValue + '/' + e.target.value + '/' + that.affichageValue + '/' + that.copyValue + '/' + that.limitValue,
                 dataType: "json",
                 type: "Post",
                 async: true,
@@ -65,6 +70,8 @@ export default class extends Controller {
                         var opt = document.createElement('option');
                         opt.value = data[i]['copy'].toString();
                         opt.innerHTML = data[i]['affichage'];
+                        opt.classList.add('clipboard')
+                        opt.setAttribute('data-clipboard-text', that.copyurlValue + data[i]['copy'].toString())
                         select.appendChild(opt);
                     }
                 },

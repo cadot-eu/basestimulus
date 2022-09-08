@@ -24,11 +24,6 @@ export default class extends Controller {
         var toolbarfixed = document.createElement('div')
         toolbarfixed.classList.add('SelectAndCopyform', 'row')
         document.body.classList.add('pb-5')
-        //Titre
-        var titre = document.createElement('h3')
-        titre.innerText = 'Recherche'
-        titre.classList.add('col-sm-12')
-        toolbarfixed.appendChild(titre)
         // label
         var label = document.createElement('label')
         label.innerText = 'Recherche'
@@ -43,6 +38,7 @@ export default class extends Controller {
         toolbarfixed.appendChild(input)
         //select
         var select = document.createElement('select')
+        select.style.display = 'none'
         select.setAttribute('size', this.limitValue)
         toolbarfixed.appendChild(select)
         select.addEventListener('change', function (e) {
@@ -50,6 +46,12 @@ export default class extends Controller {
 
         })
         toolbarfixed.appendChild(select)
+        //Titre
+        var titre = document.createElement('h3')
+        titre.innerText = 'Recherche'
+        titre.classList.add('col-sm-12')
+        toolbarfixed.appendChild(titre)
+        //toolbar
         toolbarfixed.classList.add('mt-5', 'fixed-top', 'w-25', 'me-auto')
         document.getElementsByTagName('form')[0].appendChild(toolbarfixed)
         input.addEventListener('input', function (e) {

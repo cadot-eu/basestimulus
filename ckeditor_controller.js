@@ -349,16 +349,24 @@ function full(e) {
 }
 function toolbar(editor) {
     if (editor.sourceElement.getAttribute('classEditor')) {
+        //mise en bas de la barre d'outil
         var toolbarfixed = document.createElement('div')
         toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
         toolbarfixed.appendChild(editor.ui.view.toolbar.element)
+        toolbarfixed.classList.add('mb-5', 'pb-1')
         document.body.appendChild(toolbarfixed)
-        document.body.classList.add('pb-5')
+        document.body.classList.add('pb-5', 'mb-5')
+        // création d'un bouton envoyer'
         var sub = document.createElement('button')
         sub.type = "submit"
-        sub.classList.add('btn', 'btn-primary', 'mt-5', 'fixed-top', 'w-25', 'ms-auto')
+        sub.classList.add('btn', 'btn-primary')
         sub.textContent = "Envoyer"
-        document.getElementsByTagName('form')[0].appendChild(sub)
+        sub.addEventListener('click', function (e) {
+            document.getElementsByTagName('form')[0].submit()
+        })
+        //on affiche la navbar de tools
+        document.getElementById('navtools').classList.remove('d-none')
+        document.getElementById('navtools').appendChild(sub)
 
     }
 }

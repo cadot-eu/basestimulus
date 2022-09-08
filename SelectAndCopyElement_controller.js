@@ -21,40 +21,35 @@ export default class extends Controller {
     }
     connect() {
         let that = this;
-        var toolbarfixed = document.createElement('div')
-        toolbarfixed.classList.add('SelectAndCopyform', 'row')
-        document.body.classList.add('pb-5')
-        // label
-        var label = document.createElement('label')
-        label.innerText = 'Recherche'
-        label.classList.add('col-sm-10', 'col-form-label')
-        toolbarfixed.appendChild(label)
+        var navbartools = document.getElementById('menutools');
+        //creation du li
+        var li = document.createElement('li');
+        li.classList.add('nav-item', 'input-group');
+        //span
+        var inputspan = document.createElement('span');
+        inputspan.classList.add('input-group-text');
+        inputspan.innerText = 'Recherche';
+        li.appendChild(inputspan);
         //input
-        var input = document.createElement('div')
-        input.classList.add('col-sm-10')
         var inputsearch = document.createElement('input')
-        input.setAttribute('type', 'text')
-        input.appendChild(inputsearch)
-        toolbarfixed.appendChild(input)
-        //select
-        var select = document.createElement('select')
-        select.style.display = 'none'
-        select.setAttribute('size', this.limitValue)
-        toolbarfixed.appendChild(select)
-        select.addEventListener('change', function (e) {
-            console.log(this.value)
-
+        inputsearch.setAttribute('type', 'text')
+        inputsearch.classList.add('form-control')
+        inputsearch.placeholder = 'Recherche d\'articles'
+        li.appendChild(inputsearch)
+        navbartools.appendChild(li)
+        //_____________select
+        //creation du modal
+        document.body.insertAdjacentHTML('beforeend', makeModal());
+        var select = document.createElement('select');
+        select.classList.add('form-control');
+        select.setAttribute('size', 20)
+        document.getElementById('modal-body').appendChild(select);
+        select.addEventListener('click', function (e) {
+            document.getElementById('modal').style.display = 'none'
         })
-        toolbarfixed.appendChild(select)
-        //Titre
-        var titre = document.createElement('h3')
-        titre.innerText = 'Recherche'
-        titre.classList.add('col-sm-12')
-        toolbarfixed.appendChild(titre)
         //toolbar
-        toolbarfixed.classList.add('mt-5', 'fixed-top', 'w-25', 'me-auto')
-        document.getElementsByTagName('form')[0].appendChild(toolbarfixed)
-        input.addEventListener('input', function (e) {
+        inputsearch.addEventListener('input', function (e) {
+            select.style.display = 'block'
             //suppression des anciennes valeurs
             for (var i = 0; i < select.querySelectorAll('option').length; i++) {
                 select.remove(i);
@@ -67,6 +62,7 @@ export default class extends Controller {
                 async: true,
                 data: {},
                 success: function (data) {
+                    document.getElementById('modal').style.display = 'block'
                     //ajout des valeurs
                     for (var i = 0; i <= data.length - 1; i++) {
                         var opt = document.createElement('option');
@@ -116,7 +112,23 @@ export default class extends Controller {
     }
 }
 
-
+function makeModal() {
+    return `<div class="modal " tabindex="-1" id="modal" style="display: none;width: 50%;max-height: 50%;margin-left: 25%;overflow:visible;" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Recherche</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.parentNode.parentNode.parentNode.parentNode.style.display = 'none'"></button>
+        </div>
+        <div class="modal-body" id="modal-body">
+        </div>
+        <div class="modal-footer">
+         <p>Cliquer sur un titre d'article pour le copier dans le presse papier</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
 
 
 

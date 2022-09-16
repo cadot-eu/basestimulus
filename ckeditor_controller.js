@@ -31,7 +31,6 @@ export default class extends Controller {
             this.editor = simple(this);
         else this.editor = vide(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
-
     }
 
     disconnect() {
@@ -261,7 +260,7 @@ function normal(e) {
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
-                uploadUrl: "/upload/" + e.uploadValue,
+                uploadUrl: "/upload/" + e.uploadValue + "/hd",
                 // Enable the XMLHttpRequest.withCredentials property if required.
                 withCredentials: false,
 
@@ -287,7 +286,33 @@ function normal(e) {
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
+            editor.plugins.get('FileRepository').loaders.on('add', (evt, loader) => {
+                //console.log('Added an upload loder', loader);
+                // console.log('The file is', loader.file);
+                //loader.file = scaleImage(loader.file)
+                let barre = "<div id='progressUploadBar' class='progressWrapper fixed-top' style='z-index:100000;float: left; height:.3rem;width: 100%'><div id='progressUpload' class='progress' style='float: left; width: 0%; background-color: yellow'></div><div id='progressUploadText' class='progressText' style='float: left;></div></div>";
+                var elem = document.createElement('div');
+                elem.innerHTML = barre;
+                document.body.appendChild(elem);
+                loader.on('change:uploadedPercent', (evt, name, uploadedPercent) => {
+                    document.getElementById('progressUpload').style.width = uploadedPercent + '%';
+                    if (uploadedPercent == 100) {
+                        document.getElementById('progressUploadBar').remove()
+                        console.log(loader.file)
+                        const range = editor.model.createRangeIn(editor.model.document.getRoot());
 
+                        for (const item of range.getItems()) {
+                            if (item.getAttribute('uploadId') === loader.id) {
+                                //console.log('Model element of uploaded image', item);
+                            }
+                        }
+                    }
+                });
+
+                loader.on('change:status', (evt, name, status) => {
+                    //console.log(`Upload status: ${status}`);
+                });
+            });
             toolbar(editor)
             editor.on('clipboardInput', (evt, data) => {
                 console.log(evt)
@@ -370,4 +395,5 @@ function toolbar(editor) {
 
     }
 }
+
 

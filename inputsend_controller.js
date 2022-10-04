@@ -5,13 +5,13 @@ import { useDebounce } from 'stimulus-use'
 export default class extends Controller {
     static debounces = ['submit']
     static values = {
-        temps: String,
-        focus: Boolean
+        temps: String
     }
 
 
 
     connect() {
+        useDebounce(this, { wait: this.tempsValue })
         if (this.focusValue) {
             this.element.focus();
             this.element.setSelectionRange(-1, -1)
@@ -21,10 +21,11 @@ export default class extends Controller {
             clearTimeout(this.timer)
             this.timer = setTimeout(function () {
                 that.form.requestSubmit()
-            }, this.tempsValue);
+            }
+            );
         })
-
     }
+
 
 
 

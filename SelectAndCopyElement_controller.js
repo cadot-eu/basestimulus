@@ -56,7 +56,7 @@ export default class extends Controller {
             }
             // $entitie, $champs, $recherche, $affichage, $copy, $limit
             $.ajax({
-                url: '/Admin/SelectAndCopy/' + that.entitieValue + '/' + that.champsValue + '/' + e.target.value + '/' + that.affichageValue + '/' + that.copyValue + '/' + that.limitValue,
+                url: '/admin/SelectAndCopy/' + that.entitieValue + '/' + that.champsValue + '/' + e.target.value + '/' + that.affichageValue + '/' + that.copyValue + '/' + that.limitValue,
                 dataType: "json",
                 type: "Post",
                 async: true,

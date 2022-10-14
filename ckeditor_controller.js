@@ -263,7 +263,7 @@ function normal(e) {
                 // The URL that the images are uploaded to.
                 uploadUrl: "/upload/" + e.uploadValue,
                 // Enable the XMLHttpRequest.withCredentials property if required.
-                withCredentials: false,
+                withCredentials: true,
 
                 // Headers sent along with the XMLHttpRequest to the upload server.
                 headers: {

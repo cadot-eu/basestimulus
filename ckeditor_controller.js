@@ -261,7 +261,7 @@ function normal(e) {
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
-                uploadUrl: "/upload/" + e.uploadValue,
+                uploadUrl: "/simplegallery/" + e.uploadValue,
                 // Enable the XMLHttpRequest.withCredentials property if required.
                 withCredentials: true,
 

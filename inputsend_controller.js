@@ -5,10 +5,9 @@ import { useDebounce } from 'stimulus-use'
 export default class extends Controller {
     static debounces = ['submit']
     static values = {
-        temps: String
+        temps: String,
+        focus: String
     }
-
-
 
     connect() {
         useDebounce(this, { wait: this.tempsValue })
@@ -19,10 +18,7 @@ export default class extends Controller {
         let that = this.element;
         this.element.addEventListener('input', function (e) {
             clearTimeout(this.timer)
-            this.timer = setTimeout(function () {
-                that.form.requestSubmit()
-            }
-            );
+            that.form.requestSubmit()
         })
     }
 

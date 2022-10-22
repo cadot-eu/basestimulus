@@ -11,10 +11,10 @@ export default class extends Controller {
 
     connect() {
         useDebounce(this, { wait: this.tempsValue })
-        if (this.focusValue) {
-            this.element.focus();
-            this.element.setSelectionRange(-1, -1)
-        }
+        // if (this.focusValue) {
+        //     this.element.focus();
+        //     this.element.setSelectionRange(-1, -1)
+        // }
         let that = this.element;
         this.element.addEventListener('input', function (e) {
             clearTimeout(this.timer)

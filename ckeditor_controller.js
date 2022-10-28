@@ -109,6 +109,7 @@ function simple(e) {
                     '|',
                     'outdent',
                     'indent',
+
                 ]
             }
         })
@@ -166,6 +167,7 @@ function simplelanguage(e) {
                     '|',
                     'outdent',
                     'indent',
+                    'removeFormat'
                 ]
             },
             language: {

@@ -33,7 +33,7 @@ export default class extends Controller {
         let retour = '';
         const data = JSON.parse(await response.text())
         if (data.length == 0)
-            retour += this.reponseValue.replace("REPONSE", this.bonjourValue)
+            retour += this.reponseValue.replace("REPONSE", this.bonjourValue).replace("DATE", 'Je suis en actuellemt en ligne.')
         data.forEach(e => {
             if (e.type == 'réponse')
                 retour += this.reponseValue.replace("REPONSE", e.texte).replace("DATE", e.date);

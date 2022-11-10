@@ -7,12 +7,11 @@ export default class extends Controller {
     /* -------------------------------------------------------------------------- */
     static values = {
         token: String,
-        target: String,
         reponse: String,
         question: String,
-        bonjour: String,
-        type: String
+        bonjour: String
     }
+    static targets = ["destination", "message"]
     /* -------------------------------------------------------------------------- */
     /*                                    code                                    */
     /* -------------------------------------------------------------------------- */
@@ -27,6 +26,7 @@ export default class extends Controller {
         }, 5000)
     }
 
+
     async seek() {
         //on récupère la reponse
         const response = await fetch(`/chatGetMessages/${this.tokenValue}/`)
@@ -36,11 +36,11 @@ export default class extends Controller {
             retour += this.reponseValue.replace("REPONSE", this.bonjourValue)
         data.forEach(e => {
             if (e.type == 'réponse')
-                retour += this.reponseValue.replace("REPONSE", e.texte);
+                retour += this.reponseValue.replace("REPONSE", e.texte).replace("DATE", e.date);
             else
                 retour += this.questionValue.replace("QUESTION", e.texte).replace("DATE", e.date);
         });
-        document.querySelector(this.targetValue).innerHTML = retour;
+        this.destinationTarget.innerHTML = retour;
     }
 
     async send() {
@@ -52,15 +52,15 @@ export default class extends Controller {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    message: document.querySelector('#chatmessage').value,
-                    type: this.typeValue
+                    message: this.messageTarget.value,
+                    type: "question"
                 })
             })
 
         } catch (error) {
             console.log(error)
         }
-        document.querySelector('#chatmessage').value = '';
+        this.messageTarget.value = '';
         this.seek();
     }
 

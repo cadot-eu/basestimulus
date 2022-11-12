@@ -11,7 +11,7 @@ export default class extends Controller {
         question: String,
         bonjour: String
     }
-    static targets = ["destination", "message"]
+    static targets = ["destination", "message", "body", "boutonshow", "boutonhide"]
     /* -------------------------------------------------------------------------- */
     /*                                    code                                    */
     /* -------------------------------------------------------------------------- */
@@ -63,5 +63,18 @@ export default class extends Controller {
         this.messageTarget.value = '';
         this.seek();
     }
+
+    show() {
+        this.bodyTarget.classList.remove('visually-hidden')
+        this.boutonshowTarget.classList.add('visually-hidden')
+        this.boutonhideTarget.classList.remove('visually-hidden')
+
+    }
+    hide() {
+        this.bodyTarget.classList.add('visually-hidden')
+        this.boutonshowTarget.classList.remove('visually-hidden')
+        this.boutonhideTarget.classList.add('visually-hidden')
+    }
+
 
 }

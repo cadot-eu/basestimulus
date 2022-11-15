@@ -11,7 +11,7 @@ export default class extends Controller {
         question: String,
         bonjour: String
     }
-    static targets = ["destination", "message", "body", "boutonshow", "boutonhide"]
+    static targets = ["destination", "message", "case", "bulle", "boutonshow", "boutonhide"]
     /* -------------------------------------------------------------------------- */
     /*                                    code                                    */
     /* -------------------------------------------------------------------------- */
@@ -65,13 +65,15 @@ export default class extends Controller {
     }
 
     show() {
-        this.bodyTarget.classList.remove('visually-hidden')
+        this.caseTarget.classList.remove('visually-hidden')
+        this.bulleTarget.classList.add('visually-hidden')
         this.boutonshowTarget.classList.add('visually-hidden')
         this.boutonhideTarget.classList.remove('visually-hidden')
 
     }
     hide() {
-        this.bodyTarget.classList.add('visually-hidden')
+        this.caseTarget.classList.add('visually-hidden')
+        this.bulleTarget.classList.remove('visually-hidden')
         this.boutonshowTarget.classList.remove('visually-hidden')
         this.boutonhideTarget.classList.add('visually-hidden')
     }

@@ -16,8 +16,13 @@ export default class extends Controller {
     /*                                    code                                    */
     /* -------------------------------------------------------------------------- */
     connect() {
-        this.seek()
-        this.startRefreshing()
+        if (localStorage.getItem('chatbox') == 'hide')
+            this.hide();
+        else {
+            this.show();
+            this.seek()
+            this.startRefreshing()
+        }
     }
 
     startRefreshing() {
@@ -33,7 +38,7 @@ export default class extends Controller {
         let retour = '';
         const data = JSON.parse(await response.text())
         if (data.length == 0)
-            retour += this.reponseValue.replace("REPONSE", this.bonjourValue).replace("DATE", 'Je suis en actuellemt en ligne.')
+            retour += this.reponseValue.replace("REPONSE", this.bonjourValue).replace("DATE", 'Je suis en actuellement en ligne.')
         data.forEach(e => {
             if (e.type == 'réponse')
                 retour += this.reponseValue.replace("REPONSE", e.texte).replace("DATE", e.date);
@@ -65,6 +70,7 @@ export default class extends Controller {
     }
 
     show() {
+        localStorage.setItem('chatbox', "show");
         this.caseTarget.classList.remove('visually-hidden')
         this.bulleTarget.classList.add('visually-hidden')
         this.boutonshowTarget.classList.add('visually-hidden')
@@ -72,6 +78,7 @@ export default class extends Controller {
 
     }
     hide() {
+        localStorage.setItem('chatbox', "hide");
         this.caseTarget.classList.add('visually-hidden')
         this.bulleTarget.classList.remove('visually-hidden')
         this.boutonshowTarget.classList.remove('visually-hidden')

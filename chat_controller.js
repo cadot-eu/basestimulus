@@ -33,6 +33,8 @@ export default class extends Controller {
 
 
     async seek() {
+
+
         //on récupère la reponse
         const response = await fetch(`/chatGetMessages/${this.tokenValue}/`)
         let retour = '';

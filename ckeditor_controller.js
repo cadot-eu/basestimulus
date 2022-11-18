@@ -4,7 +4,6 @@ import BuildEditor from '/assets/ckeditor/build/ckeditor';
 
 
 /* ---------------- transformation des textareas en fckeditor --------------- */
-// à copier dans assets/controllers et à modifier pour le site
 
 export default class extends Controller {
 
@@ -32,7 +31,6 @@ export default class extends Controller {
             this.editor = simple(this);
         else this.editor = vide(this)
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
-
     }
 
     disconnect() {
@@ -149,10 +147,11 @@ function simplelanguage(e) {
                 options: [
                     {
                         model: 'Marker',
-                        class: '',
-                        title: 'Marqueur',
+                        class: 'MotClefLienInterne',
+                        title: 'Mot clef pour lien interne',
                         type: 'marker'
                     }
+
                 ]
             },
             toolbar: {
@@ -201,9 +200,9 @@ function normal(e) {
                     { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
                     { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
                     { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-                    { model: 'plus', view: 'p .plus', title: '+', class: 'ck-heading_plus' },
                 ]
             },
+            mediaEmbed: { previewsInData: true },
             highlight: {
                 options: [
                     {
@@ -211,7 +210,8 @@ function normal(e) {
                         class: '',
                         title: 'Marqueur',
                         type: 'marker'
-                    }
+                    },
+
                 ]
             },
             bulletedList: {
@@ -239,6 +239,7 @@ function normal(e) {
                     'outdent',
                     'indent',
                     '|',
+                    'highlight',
                     'imageUpload',
                     'blockQuote',
                     'insertTable',
@@ -262,9 +263,9 @@ function normal(e) {
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
-                uploadUrl: "/upload/" + e.uploadValue,
+                uploadUrl: "/simplegallery/" + e.uploadValue,
                 // Enable the XMLHttpRequest.withCredentials property if required.
-                withCredentials: false,
+                withCredentials: true,
 
                 // Headers sent along with the XMLHttpRequest to the upload server.
                 headers: {
@@ -288,7 +289,33 @@ function normal(e) {
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
+            editor.plugins.get('FileRepository').loaders.on('add', (evt, loader) => {
+                //console.log('Added an upload loder', loader);
+                // console.log('The file is', loader.file);
+                //loader.file = scaleImage(loader.file)
+                let barre = "<div id='progressUploadBar' class='progressWrapper fixed-top' style='z-index:100000;float: left; height:.3rem;width: 100%'><div id='progressUpload' class='progress' style='float: left; width: 0%; background-color: yellow'></div><div id='progressUploadText' class='progressText' style='float: left;></div></div>";
+                var elem = document.createElement('div');
+                elem.innerHTML = barre;
+                document.body.appendChild(elem);
+                loader.on('change:uploadedPercent', (evt, name, uploadedPercent) => {
+                    document.getElementById('progressUpload').style.width = uploadedPercent + '%';
+                    if (uploadedPercent == 100) {
+                        document.getElementById('progressUploadBar').remove()
+                        console.log(loader.file)
+                        const range = editor.model.createRangeIn(editor.model.document.getRoot());
 
+                        for (const item of range.getItems()) {
+                            if (item.getAttribute('uploadId') === loader.id) {
+                                //console.log('Model element of uploaded image', item);
+                            }
+                        }
+                    }
+                });
+
+                loader.on('change:status', (evt, name, status) => {
+                    //console.log(`Upload status: ${status}`);
+                });
+            });
             toolbar(editor)
             editor.on('clipboardInput', (evt, data) => {
                 console.log(evt)
@@ -350,17 +377,26 @@ function full(e) {
 }
 function toolbar(editor) {
     if (editor.sourceElement.getAttribute('classEditor')) {
+        //mise en bas de la barre d'outil
         var toolbarfixed = document.createElement('div')
         toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
         toolbarfixed.appendChild(editor.ui.view.toolbar.element)
+        toolbarfixed.classList.add('mb-5', 'pb-1')
         document.body.appendChild(toolbarfixed)
-        document.body.classList.add('pb-5')
+        document.body.classList.add('pb-5', 'mb-5')
+        // création d'un bouton envoyer'
         var sub = document.createElement('button')
         sub.type = "submit"
-        sub.classList.add('btn', 'btn-primary', 'mt-5', 'fixed-top', 'w-25', 'ms-auto')
+        sub.classList.add('btn', 'btn-primary')
         sub.textContent = "Envoyer"
-        document.getElementsByTagName('form')[0].appendChild(sub)
+        sub.addEventListener('click', function (e) {
+            document.getElementsByTagName('form')[0].submit()
+        })
+        //on affiche la navbar de tools
+        document.getElementById('navtools').classList.remove('d-none')
+        document.getElementById('navtools').appendChild(sub)
 
     }
 }
+
 

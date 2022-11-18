@@ -1,3 +1,4 @@
+//affiche l'ancienne valeur du champ file et ajoute un bouton pour supprimer le fichier
 import { Controller } from '@hotwired/stimulus'
 import { doc } from 'prettier';
 export default class extends Controller {

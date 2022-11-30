@@ -1,0 +1,253 @@
+{
+"1b8d2c7":{  "subject": "refactorisation en cours",
+  "date": "Tue, 22 Nov 2022 19:50:55 +0100"
+ },
+"4b90f15":{  "subject": "question collapse",
+  "date": "Mon, 21 Nov 2022 15:32:55 +0100"
+ },
+"9caea6a":{  "subject": "maj crud",
+  "date": "Fri, 18 Nov 2022 12:12:09 +0100"
+ },
+"99e55ab":{  "subject": "Merge branch 'main' of github.com:cadot-eu/basestimulus into main",
+  "date": "Fri, 18 Nov 2022 11:25:13 +0100"
+ },
+"2e19d31":{  "subject": "mercure ok sur mercure.cadot.eu",
+  "date": "Fri, 18 Nov 2022 07:40:39 +0100"
+ },
+"746d62f":{  "subject": "chatbox se souvenir,visibilité",
+  "date": "Tue, 15 Nov 2022 10:56:15 +0100"
+ },
+"d74fb34":{  "subject": "modify bulle",
+  "date": "Tue, 15 Nov 2022 10:15:30 +0100"
+ },
+"cb567bf":{  "subject": "add bouton pour cacher",
+  "date": "Sat, 12 Nov 2022 12:57:50 +0100"
+ },
+"ec77c0d":{  "subject": "add pour bonjour message",
+  "date": "Thu, 10 Nov 2022 18:51:52 +0100"
+ },
+"4ee151a":{  "subject": "chatbox ok",
+  "date": "Thu, 10 Nov 2022 18:35:49 +0100"
+ },
+"b1404e2":{  "subject": "mailbox avec html sortis",
+  "date": "Tue, 8 Nov 2022 15:01:43 +0100"
+ },
+"6bcd8d9":{  "subject": "maj parametres",
+  "date": "Tue, 1 Nov 2022 11:11:58 +0100"
+ },
+"13cd45d":{  "subject": "suppression du formulaire commenatire",
+  "date": "Tue, 1 Nov 2022 10:06:02 +0100"
+ },
+"26d74c3":{  "subject": "correction espace",
+  "date": "Fri, 28 Oct 2022 10:41:48 +0200"
+ },
+"d8d9c4b":{  "subject": "retire inputsend des knprecherche",
+  "date": "Sat, 22 Oct 2022 12:39:25 +0200"
+ },
+"72abc34":{  "subject": "repair focus after ajax send",
+  "date": "Fri, 21 Oct 2022 13:27:22 +0200"
+ },
+"cd0e4f5":{  "subject": "new image upload",
+  "date": "Sat, 15 Oct 2022 18:12:02 +0200"
+ },
+"b4cc744":{  "subject": "maj uploader",
+  "date": "Fri, 14 Oct 2022 11:36:20 +0200"
+ },
+"559ddd8":{  "subject": "selectandcopy",
+  "date": "Wed, 12 Oct 2022 14:57:47 +0200"
+ },
+"946b95c":{  "subject": "fix youtube",
+  "date": "Wed, 5 Oct 2022 10:53:49 +0200"
+ },
+"d601b66":{  "subject": "rm ancien fichier",
+  "date": "Tue, 4 Oct 2022 10:18:11 +0200"
+ },
+"4e0c37e":{  "subject": "add couleur dans graphique",
+  "date": "Tue, 4 Oct 2022 10:08:40 +0200"
+ },
+"b575909":{  "subject": "error",
+  "date": "Mon, 19 Sep 2022 09:32:23 +0200"
+ },
+"9964c24":{  "subject": "many modifications",
+  "date": "Sun, 18 Sep 2022 14:38:24 +0200"
+ },
+"5ec84c9":{  "subject": "resize picture",
+  "date": "Fri, 16 Sep 2022 13:15:11 +0200"
+ },
+"81f03fb":{  "subject": "new presentation de la recherche",
+  "date": "Thu, 8 Sep 2022 17:18:33 +0200"
+ },
+"9b48e46":{  "subject": "menu en dropdown",
+  "date": "Thu, 8 Sep 2022 10:39:41 +0200"
+ },
+"269ba80":{  "subject": "start find link",
+  "date": "Wed, 7 Sep 2022 14:08:26 +0200"
+ },
+"d37d691":{  "subject": "error réparé sur for",
+  "date": "Tue, 6 Sep 2022 18:15:54 +0200"
+ },
+"deded61":{  "subject": "add api search",
+  "date": "Fri, 2 Sep 2022 09:48:42 +0200"
+ },
+"281f9a7":{  "subject": "mots clefs en place",
+  "date": "Sat, 27 Aug 2022 17:29:47 +0200"
+ },
+"59542ad":{  "subject": "debut creer comparatif",
+  "date": "Tue, 23 Aug 2022 14:50:04 +0200"
+ },
+"152a14c":{  "subject": "simu en place",
+  "date": "Mon, 15 Aug 2022 15:39:09 +0200"
+ },
+"341c61d":{  "subject": "rectif objects",
+  "date": "Wed, 3 Aug 2022 15:45:44 +0200"
+ },
+"336b203":{  "subject": "dossiers et entreprises sélectionnées",
+  "date": "Thu, 28 Jul 2022 13:38:39 +0200"
+ },
+"2ef7366":{  "subject": "create comment",
+  "date": "Tue, 19 Jul 2022 16:47:22 +0200"
+ },
+"b37ebb4":{  "subject": "style",
+  "date": "Sat, 9 Jul 2022 15:37:05 +0200"
+ },
+"fc94a14":{  "subject": "plug sortis de ckeditor",
+  "date": "Sat, 9 Jul 2022 12:04:40 +0200"
+ },
+"00d114e":{  "subject": "add plug-ins ckeditor",
+  "date": "Sat, 9 Jul 2022 10:41:19 +0200"
+ },
+"28cfe9d":{  "subject": "infinite ok",
+  "date": "Wed, 6 Jul 2022 09:53:44 +0200"
+ },
+"71e9623":{  "subject": "search infinite en place",
+  "date": "Tue, 5 Jul 2022 15:19:41 +0200"
+ },
+"9e9808c":{  "subject": "add focus",
+  "date": "Sat, 2 Jul 2022 13:43:00 +0200"
+ },
+"dd9ec07":{  "subject": "search send",
+  "date": "Sat, 2 Jul 2022 13:28:33 +0200"
+ },
+"4919e9b":{  "subject": "fix ckeditor.js",
+  "date": "Fri, 1 Jul 2022 13:31:22 +0200"
+ },
+"e552404":{  "subject": "maj",
+  "date": "Thu, 30 Jun 2022 14:22:44 +0200"
+ },
+"e5a2dfb":{  "subject": "produits",
+  "date": "Sat, 25 Jun 2022 20:14:54 +0200"
+ },
+"46efd22":{  "subject": "fix",
+  "date": "Sat, 25 Jun 2022 15:14:54 +0200"
+ },
+"d88699e":{  "subject": "toolbar",
+  "date": "Sat, 25 Jun 2022 15:09:39 +0200"
+ },
+"30bb003":{  "subject": "add toolbar",
+  "date": "Sat, 25 Jun 2022 14:42:43 +0200"
+ },
+"ed3a0bf":{  "subject": "add toolbar",
+  "date": "Sat, 25 Jun 2022 14:41:02 +0200"
+ },
+"5b72695":{  "subject": "open restore 3D",
+  "date": "Sat, 25 Jun 2022 09:53:22 +0200"
+ },
+"dadf103":{  "subject": "parametres",
+  "date": "Thu, 23 Jun 2022 01:53:14 +0200"
+ },
+"306514b":{  "subject": "traduction",
+  "date": "Wed, 22 Jun 2022 17:43:34 +0200"
+ },
+"fd2f1b3":{  "subject": "dossier en place",
+  "date": "Mon, 20 Jun 2022 18:48:50 +0200"
+ },
+"163479e":{  "subject": "fomulaire en place",
+  "date": "Sun, 19 Jun 2022 20:05:17 +0200"
+ },
+"597244c":{  "subject": "captcha en place",
+  "date": "Sun, 19 Jun 2022 17:56:12 +0200"
+ },
+"7619795":{  "subject": "new repository",
+  "date": "Sat, 18 Jun 2022 10:28:31 +0200"
+ },
+"a8f46f5":{  "subject": "fix attr",
+  "date": "Thu, 16 Jun 2022 12:31:50 +0200"
+ },
+"b9e86f0":{  "subject": "maj params",
+  "date": "Wed, 15 Jun 2022 03:55:00 +0200"
+ },
+"b5bf771":{  "subject": "hiddenroot",
+  "date": "Wed, 15 Jun 2022 02:06:34 +0200"
+ },
+"2863483":{  "subject": "inject code par index et delete",
+  "date": "Mon, 13 Jun 2022 12:39:12 +0200"
+ },
+"8989715":{  "subject": "simpleupload ckeditor",
+  "date": "Mon, 13 Jun 2022 10:03:33 +0200"
+ },
+"001e438":{  "subject": "galerie en place",
+  "date": "Thu, 9 Jun 2022 20:01:37 +0200"
+ },
+"b119c12":{  "subject": "maj img alt",
+  "date": "Thu, 9 Jun 2022 18:50:39 +0200"
+ },
+"e027be8":{  "subject": "galerie en place",
+  "date": "Thu, 9 Jun 2022 13:33:35 +0200"
+ },
+"8064b1c":{  "subject": "add groupe",
+  "date": "Thu, 9 Jun 2022 13:17:53 +0200"
+ },
+"1044dd5":{  "subject": "collection et entity générer par crud",
+  "date": "Thu, 9 Jun 2022 09:37:25 +0200"
+ },
+"d3a447d":{  "subject": "creation de protect",
+  "date": "Sun, 5 Jun 2022 12:23:02 +0200"
+ },
+"113329e":{  "subject": "new chart",
+  "date": "Thu, 2 Jun 2022 10:35:01 +0200"
+ },
+"175c89a":{  "subject": "Merge branch 'main' of github.com:cadot-eu/basestimulus into main",
+  "date": "Thu, 2 Jun 2022 10:34:40 +0200"
+ },
+"b562af4":{  "subject": "new chart",
+  "date": "Thu, 2 Jun 2022 10:34:28 +0200"
+ },
+"4970c04":{  "subject": "modifs",
+  "date": "Wed, 25 May 2022 20:23:27 +0200"
+ },
+"87ea8ff":{  "subject": "add title",
+  "date": "Sun, 22 May 2022 13:46:58 +0200"
+ },
+"cdcb0dd":{  "subject": "les articles",
+  "date": "Sat, 21 May 2022 12:53:23 +0200"
+ },
+"575eed9":{  "subject": "add filereset",
+  "date": "Thu, 19 May 2022 16:51:53 +0200"
+ },
+"2542ce2":{  "subject": "big maj",
+  "date": "Thu, 19 May 2022 13:20:15 +0200"
+ },
+"aeaacf1":{  "subject": "art",
+  "date": "Tue, 17 May 2022 15:18:37 +0200"
+ },
+"cddd909":{  "subject": "modifs",
+  "date": "Tue, 17 May 2022 14:32:09 +0200"
+ },
+"7e2669e":{  "subject": "new bigpicture avec options",
+  "date": "Sat, 14 May 2022 23:36:19 +0200"
+ },
+"428a2f5":{  "subject": "add simplelanguage",
+  "date": "Tue, 10 May 2022 18:41:48 +0200"
+ },
+"211951d":{  "subject": "Update README.md",
+  "date": "Sat, 7 May 2022 11:00:35 +0200"
+ },
+"d1235eb":{  "subject": "add real doc",
+  "date": "Sat, 7 May 2022 10:55:44 +0200"
+ },
+"f2c1946":{  "subject": "doc in french",
+  "date": "Fri, 6 May 2022 22:36:42 +0200"
+ },
+"b8fc4ad":{  "subject": "first commit",
+  "date": "Wed, 4 May 2022 20:36:50 +0200"
+ }}

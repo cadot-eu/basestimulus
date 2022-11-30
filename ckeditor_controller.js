@@ -1,8 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import BuildEditor from '/assets/ckeditor/build/ckeditor';
 
-
-
 /* ---------------- transformation des textareas en fckeditor --------------- */
 
 export default class extends Controller {
@@ -221,8 +219,7 @@ function normal(e) {
             },
             toolbar: {
                 items: [
-                    'simplebox',
-                    'placeholder',
+                    'simpleBox',
                     'heading',
                     'bold',
                     'italic',

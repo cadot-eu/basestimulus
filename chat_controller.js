@@ -16,7 +16,7 @@ export default class extends Controller {
     /*                                    code                                    */
     /* -------------------------------------------------------------------------- */
     connect() {
-        if (localStorage.getItem('chatbox') == 'hide')
+        if (localStorage.getItem('chatbox') != 'show')
             this.hide();
         else {
             this.show();

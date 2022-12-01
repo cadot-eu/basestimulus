@@ -259,7 +259,7 @@ function normal(e) {
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
-                uploadUrl: "/simplegallery/" + e.uploadValue,
+                uploadUrl: "/upload/" + e.uploadValue,
                 // Enable the XMLHttpRequest.withCredentials property if required.
                 withCredentials: true,
 
@@ -297,7 +297,7 @@ function normal(e) {
                     document.getElementById('progressUpload').style.width = uploadedPercent + '%';
                     if (uploadedPercent == 100) {
                         document.getElementById('progressUploadBar').remove()
-                        console.log(loader.file)
+                        //console.log(loader.file)
                         const range = editor.model.createRangeIn(editor.model.document.getRoot());
 
                         for (const item of range.getItems()) {
@@ -330,6 +330,8 @@ function normal(e) {
                 // to allow further processing of the content.
                 data.content = viewContent;
             });
+
+
         })
         .catch(error => {
             console.error(error.stack);

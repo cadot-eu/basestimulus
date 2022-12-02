@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import BuildEditor from '/assets/ckeditor/build/ckeditor';
-
+const { filetemplates } = require('/assets/simpleBoxTemplates.js').default;
+let templates = JSON.parse(filetemplates);
 
 /* ---------------- transformation des textareas en fckeditor --------------- */
 
@@ -187,6 +188,7 @@ function simplelanguage(e) {
         });
 }
 function normal(e) {
+
     return BuildEditor.create(e.element,
         {
             heading: {
@@ -239,7 +241,6 @@ function normal(e) {
                     'imageUpload',
                     'blockQuote',
                     'insertTable',
-                    'mediaEmbed',
                     'link',
                     'todoList',
                     'undo',
@@ -256,6 +257,9 @@ function normal(e) {
             },
             mediaEmbed: {
                 // configuration...
+            },
+            simpleBox: {
+                templates: templates
             },
             simpleUpload: {
                 // The URL that the images are uploaded to.
@@ -279,9 +283,9 @@ function normal(e) {
 
         .then(editor => {
             editor.setData(e.element.value)
-            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
-            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            // });
+            editor.editing.view.document.on('clipboardInput', (evt, data) => {
+                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+            });
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
@@ -309,7 +313,7 @@ function normal(e) {
                 });
 
                 loader.on('change:status', (evt, name, status) => {
-                    //console.log(`Upload status: ${status}`);
+                    console.log(`Upload status: ${status}`);
                 });
             });
             toolbar(editor)

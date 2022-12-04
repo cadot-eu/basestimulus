@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import BuildEditor from '/assets/ckeditor/build/ckeditor';
 const { filetemplates } = require('/assets/simpleBoxTemplates.js').default;
 let templates = JSON.parse(filetemplates);
+let liipFilters;
 
 /* ---------------- transformation des textareas en fckeditor --------------- */
 
@@ -18,7 +19,22 @@ export default class extends Controller {
     }
 
 
-    connect() {
+    async connect() {
+        const response = await fetch('/admin/getLiipFilters');
+        const data = await response.json();
+        let tablo = [{
+            name: 'resizeImage:original',
+            value: null,
+            label: 'Original'
+        },];
+        data.forEach(element => {
+            if (!Number.isInteger(element) && element !== 'cache') {
+                tablo.push({ name: element, value: element, label: element });
+            }
+        });
+        liipFilters = tablo;
+        console.log(liipFilters);
+
         if (this.toolbarValue == 'full')
             this.editor = full(this);
         else if (this.toolbarValue == 'simplelanguage')
@@ -30,7 +46,8 @@ export default class extends Controller {
         else if (this.toolbarValue == 'simple')
             this.editor = simple(this);
         else this.editor = vide(this)
-        //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
+
+
     }
 
 
@@ -186,7 +203,6 @@ function simplelanguage(e) {
         });
 }
 function normal(e) {
-
     return BuildEditor.create(e.element,
         {
             heading: {
@@ -276,23 +292,8 @@ function normal(e) {
             },
 
             image: {
-                resizeOptions: [
-                    {
-                        name: 'resizeImage:original',
-                        value: null,
-                        label: 'Original'
-                    },
-                    {
-                        name: 'resizeImage:40',
-                        value: 'mini',
-                        label: 'mini',
-                    },
-                    {
-                        name: 'resizeImage:60',
-                        value: '60',
-                        label: '60%'
-                    }
-                ],
+                resizeOptions: liipFilters
+                ,
                 toolbar: ['imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', 'toggleImageCaption', 'imageStyle:linkImage', 'resizeImage'],
                 styles: ['full', 'alignLeft', 'alignCenter', 'alignRight', 'toggleImageCaption', 'linkImage']
             },

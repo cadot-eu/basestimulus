@@ -33,9 +33,7 @@ export default class extends Controller {
         //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
     }
 
-    disconnect() {
 
-    }
 }
 
 
@@ -306,25 +304,14 @@ function normal(e) {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
             editor.plugins.get('FileRepository').loaders.on('add', (evt, loader) => {
-                //console.log('Added an upload loder', loader);
-                // console.log('The file is', loader.file);
-                //loader.file = scaleImage(loader.file)
                 let barre = "<div id='progressUploadBar' class='progressWrapper fixed-top' style='z-index:100000;float: left; height:.3rem;width: 100%'><div id='progressUpload' class='progress' style='float: left; width: 0%; background-color: yellow'></div><div id='progressUploadText' class='progressText' style='float: left;></div></div>";
-                var elem = document.createElement('div');
+                let elem = document.createElement('div');
                 elem.innerHTML = barre;
                 document.body.appendChild(elem);
                 loader.on('change:uploadedPercent', (evt, name, uploadedPercent) => {
                     document.getElementById('progressUpload').style.width = uploadedPercent + '%';
                     if (uploadedPercent == 100) {
                         document.getElementById('progressUploadBar').remove()
-                        //console.log(loader.file)
-                        const range = editor.model.createRangeIn(editor.model.document.getRoot());
-
-                        for (const item of range.getItems()) {
-                            if (item.getAttribute('uploadId') === loader.id) {
-                                //console.log('Model element of uploaded image', item);
-                            }
-                        }
                     }
                 });
 
@@ -380,9 +367,6 @@ function full(e) {
     })
         .then(editor => {
             editor.setData(e.element.value)
-            // editor.editing.view.document.on('clipboardInput', (evt, data) => {
-            //     data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            // });
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });
@@ -396,14 +380,14 @@ function full(e) {
 function toolbar(editor) {
     if (editor.sourceElement.getAttribute('classEditor')) {
         //mise en bas de la barre d'outil
-        var toolbarfixed = document.createElement('div')
+        let toolbarfixed = document.createElement('div')
         toolbarfixed.classList.add(editor.sourceElement.getAttribute('classEditor'))
         toolbarfixed.appendChild(editor.ui.view.toolbar.element)
         toolbarfixed.classList.add('mb-5', 'pb-1')
         document.body.appendChild(toolbarfixed)
         document.body.classList.add('pb-5', 'mb-5')
         // création d'un bouton envoyer'
-        var sub = document.createElement('button')
+        let sub = document.createElement('button')
         sub.type = "submit"
         sub.classList.add('btn', 'btn-primary')
         sub.textContent = "Envoyer"

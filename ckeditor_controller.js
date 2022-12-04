@@ -255,9 +255,6 @@ function normal(e) {
                     '|'
                 ]
             },
-            mediaEmbed: {
-                // configuration...
-            },
             simpleBox: {
                 templates: templates
             },

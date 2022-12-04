@@ -177,7 +177,7 @@ function simplelanguage(e) {
         .then(editor => {
             editor.setData(e.element.value)
             editor.editing.view.document.on('clipboardInput', (evt, data) => {
-                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
+
             });
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
@@ -279,13 +279,32 @@ function normal(e) {
                     { title: 'Anglais', languageCode: 'en' }
                 ]
             },
+
+            image: {
+                resizeOptions: [
+                    {
+                        name: 'resizeImage:original',
+                        value: null,
+                        label: 'Original'
+                    },
+                    {
+                        name: 'resizeImage:40',
+                        value: 'mini',
+                        label: 'mini',
+                    },
+                    {
+                        name: 'resizeImage:60',
+                        value: '60',
+                        label: '60%'
+                    }
+                ],
+                toolbar: ['imageStyle:full', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', 'toggleImageCaption', 'imageStyle:linkImage', 'resizeImage'],
+                styles: ['full', 'alignLeft', 'alignCenter', 'alignRight', 'toggleImageCaption', 'linkImage']
+            },
         })
 
         .then(editor => {
             editor.setData(e.element.value)
-            editor.editing.view.document.on('clipboardInput', (evt, data) => {
-                data.content = editor.data.htmlProcessor.toView(data.dataTransfer.getData('text/plain'));
-            });
             editor.model.document.on('change:data', () => {
                 e.element.value = editor.getData();//.replace(/<p>+/, "").replace(/<\/p>+$/, "");
             });

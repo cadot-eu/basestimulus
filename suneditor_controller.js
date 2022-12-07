@@ -21,7 +21,9 @@ export default class extends Controller {
 
 
     connect() {
+        console.log(this.toolbarValue)
         const e = this.element;
+        let editor;
         const init = suneditor.init({
             lang: fr,
             height: 600,
@@ -37,13 +39,20 @@ export default class extends Controller {
         })
 
         if (this.toolbarValue == 'full')
-            this.editor = full(this);
+            editor = init.create(this.element.id)
         else if (this.toolbarValue == 'simplelanguage')
-            this.editor = simplelanguage(this);
-        else if (this.toolbarValue == 'vide')
-            this.editor = vide(this);
+            editor = suneditor.create(this.element.id,
+                {
+                    height: '2rem',
+                    buttonList: [
+                        ['undo', 'redo', 'textStyle'],
+                        ['removeFormat'],
+                    ]
+                }
+
+            )
         else if (this.toolbarValue == 'normal') {
-            const editor = init.create(this.element.id,
+            editor = init.create(this.element.id,
                 {
                     buttonList: [
                         ['undo', 'redo'],
@@ -95,10 +104,24 @@ export default class extends Controller {
 
         }
         else if (this.toolbarValue == 'simple')
-            this.editor = simple(this);
-        else this.editor = vide(this)
-        //protection contre le problème required sur un champ display none qui cré l'erreur is not focusable 
+            editor = suneditor.create(this.element.id,
+                {
+                    buttonList: [
+                        ['undo', 'redo', 'textStyle'],
+                        ['removeFormat'],
+                    ]
+                }
 
+            )
+        else
+            editor = suneditor.create(this.element.id,
+                {
+                    buttonList: [
+                        ['undo', 'redo', 'removeFormat']
+                    ]
+                }
+
+            )
     }
 
     disconnect() {

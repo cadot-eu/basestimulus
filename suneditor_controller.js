@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus'
-//import 'suneditor/dist/css/suneditor.min.css'
 import suneditor from 'suneditor'
 import plugins from 'suneditor/src/plugins'
 import fr from 'suneditor/src/lang/fr.js'

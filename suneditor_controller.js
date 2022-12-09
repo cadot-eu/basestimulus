@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 import suneditor from 'suneditor'
 import plugins from 'suneditor/src/plugins'
 import fr from 'suneditor/src/lang/fr.js'
-const { filetemplates } = require('/assets/suneditor/templates.js').default;
+const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
 /* ---------------- transformation des textareas en fckeditor --------------- */
 

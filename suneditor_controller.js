@@ -36,7 +36,6 @@ export default class extends Controller {
 
 
         })
-
         if (this.toolbarValue == 'full')
             editor = init.create(this.element.id)
         else if (this.toolbarValue == 'simplelanguage')

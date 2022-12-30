@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import suneditor from 'suneditor'
 import plugins from 'suneditor/src/plugins'
 import fr from 'suneditor/src/lang/fr.js'
-const { filetemplates } = require('/assets/js/suneditor/templates.js').default;
+const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
 /* ---------------- transformation des textareas en fckeditor --------------- */
 
@@ -86,14 +86,19 @@ export default class extends Controller {
             setInterval(function () {
                 for (let numimage in editor.getFilesInfo('image')) {
                     let image = editor.getFilesInfo('image')[numimage]
-                    if ((image.element.dataset.liip !== undefined && image.element.src.split('/uploads/')[1] !== undefined)) {
-                        image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads/' + image.element.src.split('/uploads/')[1]
+                    if ((image.element.dataset.liip !== undefined)) {//&& image.element.src.split('/uploads/')[1] !== undefined
+                        console.log(image.element.src.split('/uploads/')[1])
+                        //if (image.element.src.split('/uploads/')[1] !== undefined)
+                        //image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads/' + image.element.src.split('/uploads/')[1]
+                        //else
+                        image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/build' + image.element.src.split('/build')[1]
                         emt.value = editor.getContents()
+                        delete image.element.dataset.liip
                     }
-                    if (['hd', 'grand', 'moyen', 'petit', 'mini', 'icone', 'bande', 'bandeaufixe', 'petitbandeau', 'petitbanderole', 'moyencarree', 'petitcarree', 'minicarree'].includes(image.element.alt)) {
-                        image.element.src = '/media/cache/resolve/' + image.element.alt + '/uploads/' + image.element.src.split('/uploads/')[1]
-                        emt.value = editor.getContents()
-                    }
+                    // if (['hd', 'grand', 'moyen', 'petit', 'mini', 'icone', 'bande', 'bandeaufixe', 'petitbandeau', 'petitbanderole', 'moyencarree', 'petitcarree', 'minicarree'].includes(image.element.alt)) {
+                    //     image.element.src = '/media/cache/resolve/' + image.element.alt + '/uploads/' + image.element.src.split('/uploads/')[1]
+                    //     emt.value = editor.getContents()
+                    // }
                 }
             }
                 , 1000)

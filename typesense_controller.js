@@ -9,6 +9,8 @@
 */}
 import { Controller } from '@hotwired/stimulus';
 const Typesense = require('typesense')
+
+
 const typesense = new Typesense.Client({
     nodes: [
         {
@@ -22,7 +24,7 @@ const typesense = new Typesense.Client({
 export default class extends Controller {
     static targets = ["box", "list", "recherche"]
     connect() {
-
+        this.rechercheTarget.addEventListener('keyup', this.search.bind(this))
     }
 
     async search() {
@@ -34,7 +36,7 @@ export default class extends Controller {
         this.listTarget.innerHTML = ''
         for (let i = 0; i < searchResults.hits.length; i++) {
             const element = searchResults.hits[i]['document'];
-            this.listTarget.innerHTML += `<li class="list-group-item"><a href="/les-articles/${element.slug}" class="text-secondary">${element.titre}</a></li>`
+            this.listTarget.innerHTML += `<li class="list-group-item p-0 "><a href="/les-articles/${element.slug}" class="text-secondary">${element.titre}</a></li>`
         }
 
         this.boxTarget.classList.replace('d-none', 'd-block')

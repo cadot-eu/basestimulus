@@ -14,7 +14,7 @@ const Typesense = require('typesense')
 const typesense = new Typesense.Client({
     nodes: [
         {
-            host: 'typesense',
+            host: 'typesense.picbleu.fr',
             port: '8108',
             protocol: 'http'
         }

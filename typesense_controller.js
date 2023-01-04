@@ -26,8 +26,6 @@ export default class extends Controller {
         apiKey: this.apiValue
     })
     connect() {
-        console.log('Typesense controller connected')
-        console.log(this.hostValue + ':' + this.portValue + ':' + this.protocolValue + ':' + this.apiValue)
         this.rechercheTarget.addEventListener('keyup', this.search.bind(this))
     }
 

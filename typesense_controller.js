@@ -15,8 +15,8 @@ const typesense = new Typesense.Client({
     nodes: [
         {
             host: 'typesense.picbleu.fr',
-            port: '8108',
-            protocol: 'http'
+            port: '443',
+            protocol: 'https'
         }
     ],
     apiKey: 'PPkTPEfTsxtR44'

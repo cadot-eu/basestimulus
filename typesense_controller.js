@@ -11,25 +11,29 @@ import { Controller } from '@hotwired/stimulus';
 const Typesense = require('typesense')
 
 
-const typesense = new Typesense.Client({
-    nodes: [
-        {
-            host: 'typesense.picbleu.fr',
-            port: '443',
-            protocol: 'https'
-        }
-    ],
-    apiKey: 'PPkTPEfTsxtR44'
-})
+
 export default class extends Controller {
     static targets = ["box", "list", "recherche"]
+    static values = { host: String, api: String, port: String, protocol: String }
+    typesense = new Typesense.Client({
+        nodes: [
+            {
+                host: this.hostValue,
+                port: this.portValue,
+                protocol: this.protocolValue
+            }
+        ],
+        apiKey: this.apiValue
+    })
     connect() {
+        console.log('Typesense controller connected')
+        console.log(this.hostValue + ':' + this.portValue + ':' + this.protocolValue + ':' + this.apiValue)
         this.rechercheTarget.addEventListener('keyup', this.search.bind(this))
     }
 
     async search() {
         let searchResults = []
-        searchResults = await typesense.collections('articles').documents().search({
+        searchResults = await this.typesense.collections('articles').documents().search({
             q: this.rechercheTarget.value,
             query_by: 'titre,texte'
         })

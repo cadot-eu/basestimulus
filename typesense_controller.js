@@ -1,12 +1,4 @@
 
-{/*
- <p data-controller="base--collapse" data-base--collapse-out-value="{{ item.reponse }}" data-action="click->base--collapse#click" style="cursor:pointer;">
-    {{ item.reponse|raw|striptags|u.truncate(30, '...') }}
-    <span>
-        <i class="text-muted">Cliquez pour lire la réponse</i>
-    </span>
-</p> 
-*/}
 import { Controller } from '@hotwired/stimulus';
 const Typesense = require('typesense')
 

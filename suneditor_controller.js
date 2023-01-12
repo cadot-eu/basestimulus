@@ -20,7 +20,6 @@ export default class extends Controller {
 
 
     connect() {
-        console.log(this.toolbarValue)
         const e = this.element;
         let editor;
         const init = suneditor.init({
@@ -53,7 +52,7 @@ export default class extends Controller {
             editor = init.create(this.element.id,
                 {
                     buttonList: [
-                        ['undo', 'redo'],
+                        ['undo', 'redo', 'codeView'],
                         ['formatBlock', 'textStyle'],
                         ['paragraphStyle', 'blockquote'],
                         ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],

@@ -32,14 +32,13 @@ export default class extends Controller {
             lang: fr,
             height: 600,
             iframeCSSFileName: "/build/app.css",
-            plugins: plugins,
+            plugins: { ...plugins, CharPlugins },
             imageUploadUrl: "/simplegallery/" + this.uploadValue,
             imageUploadSizeLimit: "5000000",
             imageUploadHeader: null,
             imageAccept: ".jpg, .png, .jpeg, .gif, .bmp, .webp",
             templates: templates,
-            plugins: [
-                CharPlugins],
+
 
 
         })

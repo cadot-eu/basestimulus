@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import suneditor from 'suneditor'
 import plugins from 'suneditor/src/plugins'
 import fr from 'suneditor/src/lang/fr.js'
+import CharPlugins from "../../jssite/suneditor/characteres_plugins.js";
 const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
 /* ---------------- transformation des textareas en fckeditor --------------- */
@@ -20,8 +21,13 @@ export default class extends Controller {
 
 
     connect() {
+        /* ----------------------------- initialistaion ----------------------------- */
         const e = this.element;
         let editor;
+
+        /* -------------------------- création des plugins -------------------------- */
+
+        /* ------------------------- initialisation globale ------------------------- */
         const init = suneditor.init({
             lang: fr,
             height: 600,
@@ -32,9 +38,12 @@ export default class extends Controller {
             imageUploadHeader: null,
             imageAccept: ".jpg, .png, .jpeg, .gif, .bmp, .webp",
             templates: templates,
+            plugins: [
+                CharPlugins],
 
 
         })
+        /* ------------------------ les différentes tollbars ------------------------ */
         if (this.toolbarValue == 'full')
             editor = init.create(this.element.id)
         else if (this.toolbarValue == 'simplelanguage')
@@ -54,7 +63,15 @@ export default class extends Controller {
                     buttonList: [
                         ['undo', 'redo', 'codeView'],
                         ['formatBlock', 'textStyle'],
-                        ['paragraphStyle', 'blockquote'],
+                        ['paragraphStyle', 'blockquote', {
+                            name: 'CharPlugins',
+                            dataCommand: 'CharPlugins',
+                            buttonClass: '',
+                            title: 'Charactères spéciaux',
+                            dataDisplay: 'submenu',
+                            innerHTML: '<i class="bi bi-translate"></i>',
+                        }],
+
                         ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
                         ['removeFormat'],
                         // '/', // Line break

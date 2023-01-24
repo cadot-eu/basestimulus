@@ -1,23 +1,24 @@
 
 import { Controller } from '@hotwired/stimulus';
-const Typesense = require('typesense')
 
 
 
 export default class extends Controller {
     static targets = ["box", "list", "recherche"]
     static values = { host: String, api: String, port: String, protocol: String }
-    typesense = new Typesense.Client({
-        nodes: [
-            {
-                host: this.hostValue,
-                port: this.portValue,
-                protocol: this.protocolValue
-            }
-        ],
-        apiKey: this.apiValue
-    })
-    connect() {
+
+    async connect() {
+        let Typesense = await import('typesense')
+        this.typesense = new Typesense.Client({
+            nodes: [
+                {
+                    host: this.hostValue,
+                    port: this.portValue,
+                    protocol: this.protocolValue
+                }
+            ],
+            apiKey: this.apiValue
+        })
         this.rechercheTarget.addEventListener('keyup', this.search.bind(this))
     }
 

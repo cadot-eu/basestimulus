@@ -1,8 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { loadStripe } from '@stripe/stripe-js';
 
-
-let stripe, elements, cardElement;
 
 export default class extends Controller {
     static values = {
@@ -11,11 +8,12 @@ export default class extends Controller {
     }
     static targets = ['bouton', 'token', 'form']
     async connect() {
+        let { loadStripe } = await import('@stripe/stripe-js');
         //creation des éléments de paiement
-        stripe = await loadStripe(this.stripekeyValue);
-        elements = stripe.elements();
-        cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        this.stripe = await loadStripe(this.stripekeyValue);
+        let elements = this.stripe.elements();
+        this.cardElement = elements.create('card');
+        this.cardElement.mount('#card-element');
 
     }
     createToken() {
@@ -24,7 +22,7 @@ export default class extends Controller {
         let tokenT = this.tokenTarget;
         let formT = this.formTarget;
         let boutonT = this.boutonTarget;
-        stripe.createToken(cardElement).then(function (result) {
+        this.stripe.createToken(this.cardElement).then(function (result) {
 
             if (typeof result.error != 'undefined') {
                 boutonT.disabled = false;

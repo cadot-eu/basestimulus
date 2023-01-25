@@ -11,7 +11,22 @@ export default class extends Controller {
         let { loadStripe } = await import('@stripe/stripe-js');
         //creation des éléments de paiement
         this.stripe = await loadStripe(this.stripekeyValue);
-        let elements = this.stripe.elements();
+        const appearance = {
+            theme: 'stripe',
+
+            variables: {
+                colorPrimary: '#0570de',
+                colorBackground: '#ffffff',
+                colorText: '#30313d',
+                colorDanger: '#df1b41',
+                fontFamily: 'Ideal Sans, system-ui, sans-serif',
+                spacingUnit: '2px',
+                borderRadius: '4px',
+                // See all possible variables below
+            }
+        };
+
+        let elements = this.stripe.elements(appearance);
         this.cardElement = elements.create('card');
         this.cardElement.mount('#card-element');
 

@@ -27,7 +27,10 @@ export default class extends Controller {
         };
 
         let elements = this.stripe.elements(appearance);
-        this.cardElement = elements.create('card');
+        this.cardElement = elements.create('card', {
+            hidePostalCode: true
+        }
+        );
         this.cardElement.mount('#card-element');
 
     }

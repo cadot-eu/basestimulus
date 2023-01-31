@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-
+//https://stripe.com/docs/payments/quickstart
 let stripe, elements, emailAddress;
 export default class extends Controller {
     static values = {

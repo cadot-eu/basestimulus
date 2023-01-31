@@ -23,11 +23,9 @@ export default class extends Controller {
         }).then((r) => r.json());
         elements = stripe.elements({ clientSecret }
         );
-
-        const linkAuthenticationElement = elements.create("linkAuthentication", {
-
-        });
-        linkAuthenticationElement.mount("#link-authentication-element");
+        //permet d'ajouter des fields
+        //const linkAuthenticationElement = elements.create("linkAuthentication");
+        //linkAuthenticationElement.mount("#link-authentication-element");
 
         const paymentElement = elements.create("payment");
         paymentElement.mount("#payment-element");

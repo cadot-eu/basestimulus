@@ -46,7 +46,7 @@ export default class extends Controller {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "https://picbleu3.localhost/paiement_dossier/" + this.iddossierValue,
+                return_url: window.location.origin + "/paiement_dossier/" + this.iddossierValue,
             },
         });
 

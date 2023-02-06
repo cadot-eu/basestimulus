@@ -97,6 +97,13 @@ export default class extends Controller {
             let emt = this.element
             editor.onChange = function (contents, core) {
                 emt.value = contents
+                //add class at table
+                let tables = document.querySelectorAll('table')
+                tables.forEach(table => {
+                    table.classList.add('table', 'table-striped', 'table-bordered')
+                }
+                )
+
             }
 
             setInterval(function () {

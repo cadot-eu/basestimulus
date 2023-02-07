@@ -100,7 +100,7 @@ export default class extends Controller {
                 //add class at table
                 let tables = document.querySelectorAll('table')
                 tables.forEach(table => {
-                    table.classList.add('table', 'table-striped', 'table-bordered')
+                    table.classList.add('table', 'table-striped', 'table-bordered', 'align-middle', 'text-center')
                 }
                 )
 

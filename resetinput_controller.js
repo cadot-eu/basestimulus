@@ -5,7 +5,7 @@ export default class extends Controller {
 
     connect() {
         let span = document.createElement('span');
-        span.title = "cliquer pour effacer la date"
+        span.title = "cliquer pour effacer le contenu";
         span.style.color = "red";
         span.style.marginLeft = "-20px";
         span.style.position = "absolute";

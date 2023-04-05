@@ -107,7 +107,6 @@ export default class extends Controller {
             }
 
             setInterval(function () {
-
                 for (let numimage in editor.getFilesInfo('image')) {
                     let image = editor.getFilesInfo('image')[numimage]
                     if ((image.element.dataset.liip !== undefined) && !image.element.src.includes('/media/cache/resolve/')) {
@@ -121,6 +120,14 @@ export default class extends Controller {
                             emt.value = editor.getContents()
                         }
                     }
+                    //on ajoute systématiquement class="img-fluid" à l'image si elle n'existe pas
+                    if (!image.element.classList.contains('img-fluid')) {
+                        image.element.classList.add('img-fluid')
+                        emt.value = editor.getContents()
+                    }
+                    //on ajoute les tailles de liipimagine
+
+
                     // if (['hd', 'grand', 'moyen', 'petit', 'mini', 'icone', 'bande', 'bandeaufixe', 'petitbandeau', 'petitbanderole', 'moyencarree', 'petitcarree', 'minicarree'].includes(image.element.alt)) {
                     //     image.element.src = '/media/cache/resolve/' + image.element.alt + '/uploads/' + image.element.src.split('/uploads/')[1]
                     //     emt.value = editor.getContents()

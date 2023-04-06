@@ -103,6 +103,17 @@ export default class extends Controller {
                     table.classList.add('table', 'table-striped', 'table-bordered', 'align-middle', 'text-center')
                 }
                 )
+                let figures = document.querySelectorAll('figure')
+                //si on a une class image_resized
+                // figures.forEach(figure => {
+                //     if (figure.classList.contains('image_resized') && figure.style.width !== '') {
+                //         //on déplace le style width dans le div avec la class se-image-container
+                //         let div = figure.querySelector('div')
+                //         div.style.width = figure.style.width
+                //         figure.style.width = ''
+                //     }
+                // }
+                // )
 
             }
 

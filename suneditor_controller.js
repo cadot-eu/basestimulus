@@ -119,23 +119,23 @@ export default class extends Controller {
 
             setInterval(function () {
                 for (let numimage in editor.getFilesInfo('image')) {
-                    let image = editor.getFilesInfo('image')[numimage]
-                    if ((image.element.dataset.liip !== undefined) && !image.element.src.includes('/media/cache/resolve/')) {
-                        //2 cas possibles : image d'un template ou auutre
-                        if (image.element.src.includes('build/img.png')) {
-                            image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/build' + image.element.src.split('/build')[1]
-                            emt.value = editor.getContents()
-                        }
-                        if (image.element.src.includes('/uploads/')) {
-                            image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads' + image.element.src.split('/uploads')[1]
-                            emt.value = editor.getContents()
-                        }
-                    }
+                    // let image = editor.getFilesInfo('image')[numimage]
+                    // if ((image.element.dataset.liip !== undefined) && !image.element.src.includes('/media/cache/resolve/')) {
+                    //     //2 cas possibles : image d'un template ou auutre
+                    //     if (image.element.src.includes('build/img.png')) {
+                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/build' + image.element.src.split('/build')[1]
+                    //         emt.value = editor.getContents()
+                    //     }
+                    //     if (image.element.src.includes('/uploads/')) {
+                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads' + image.element.src.split('/uploads')[1]
+                    //         emt.value = editor.getContents()
+                    //     }
+                    // }
                     //on ajoute systématiquement class="img-fluid" à l'image si elle n'existe pas
-                    if (!image.element.classList.contains('img-fluid')) {
-                        image.element.classList.add('img-fluid')
-                        emt.value = editor.getContents()
-                    }
+                    // if (!image.element.classList.contains('img-fluid')) {
+                    //     image.element.classList.add('img-fluid')
+                    //     emt.value = editor.getContents()
+                    // }
                     //on ajoute les tailles de liipimagine
 
 

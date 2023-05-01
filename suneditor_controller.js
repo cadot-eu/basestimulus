@@ -46,7 +46,7 @@ export default class extends Controller {
         if (this.toolbarValue == 'full')
             editor = init.create(this.element.id)
         else if (this.toolbarValue == 'simplelanguage')
-            editor = suneditor.create(this.element.id,
+            editor = init.create(this.element.id,
                 {
                     height: '2rem',
                     buttonList: [
@@ -169,6 +169,9 @@ export default class extends Controller {
                 }
 
             )
+        editor.onChange = function (contents, core) {
+            e.value = contents
+        }
     }
 
     disconnect() {

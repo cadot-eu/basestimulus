@@ -38,10 +38,8 @@ export default class extends Controller {
             imageUploadHeader: null,
             imageAccept: ".jpg, .png, .jpeg, .gif, .bmp, .webp",
             templates: templates,
-
-
-
         })
+
         /* ------------------------ les différentes tollbars ------------------------ */
         if (this.toolbarValue == 'full')
             editor = init.create(this.element.id)

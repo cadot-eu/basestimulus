@@ -13,11 +13,13 @@ let message;
 let error;
 let select;
 let destination; //contient l'élément où on veut afficher si une adresse a été choisie dans le select
+let proprietes; //contient l'élément où on veut afficher les propriétés de l'adresse choisie dans le select
 export default class extends Controller {
 
     static values = {
         limit: { type: Number, default: 10 },
-        destination: String
+        destination: String,
+        proprietes: String
 
     }
     connect() {
@@ -26,6 +28,9 @@ export default class extends Controller {
         }
         else {
             destination = this.element;
+        }
+        if (this.proprietesValue != null) {
+            proprietes = document.getElementById(this.proprietesValue);
         }
         limit = this.limitValue;
         that = this.element;
@@ -67,17 +72,19 @@ export default class extends Controller {
                         //si on a pas de résultat on affiche un message
                         if (data.features.length > 0) {
                             let options = '<option value="">Choisir une adresse</option>';
-                            data.features.forEach(element => {
-                                options += '<option value="' + element.properties.label + '">' + element.properties.label + '</option>';
+                            data.features.forEach((element, index) => {
+                                options += '<option value="' + index + '">' + element.properties.label + '</option>';
                             });
                             //on ajoute les options et on affiche le select
                             if (select.hidden == true) {
                                 select.innerHTML = options;
                                 //on ajoute un event listener sur le select
                                 select.addEventListener('change', function (e) {
-                                    that.value = this.value;
+                                    that.value = data.features[this.value].properties.label;
                                     select.hidden = true;
                                     destination.value = input.target.value;
+                                    if (proprietes != null)
+                                        proprietes.value = JSON.stringify(data.features[this.value].properties);
                                 });
                             }
                             else { //si le select est déjà affiché on change juste les options

@@ -12,7 +12,11 @@ export default class extends Controller {
 
     connect() {
         if (this.codeValue != 'm@cadot.eu') {
-            this.element.setAttribute('readonly', true)
+            //on transforme le input en label
+            let divparent = document.createElement('div')
+            divparent.classList.add('mb-3', 'row', 'mt-n3')
+            divparent.innerHTML = '<div class="offset-2 col-sm-10"><div class="form-text text-muted">' + this.element.value + '</div></div>';
+            this.element.parentNode.parentNode.replaceWith(divparent)
         }
     }
 

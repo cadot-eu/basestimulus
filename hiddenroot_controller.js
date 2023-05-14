@@ -8,15 +8,14 @@ export default class extends Controller {
         code: String
     }
 
-
-
     connect() {
         //on recherche tous les éléments qui ont le type hidden pour trandformer tous les champs hiddenroot
-        document.querySelectorAll('[type="hidden"]').forEach(element => {
-            console.log(element.getAttribute('data-controller'));
+        document.querySelectorAll('[data-base--hiddenroot-code-value]').forEach(element => {
             if (element.getAttribute("data-base--hiddenroot-code-value") == 'm@cadot.eu') {
                 element.setAttribute('type', 'text')
+                element.parentNode.parentNode.classList.remove('d-none')
             }
+
         });
     }
 

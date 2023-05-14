@@ -252,8 +252,10 @@ export default class extends Controller {
                 }
 
             )
-        editor.onChange = function (contents, core) {
-            e.value = contents
+        if (this.toolbarValue != 'string') {
+            editor.onChange = function (contents, core) {
+                e.value = contents
+            }
         }
     }
 

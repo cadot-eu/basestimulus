@@ -241,6 +241,8 @@ export default class extends Controller {
                 }
 
             )
+        else if (this.toolbarValue == 'string') { // on ne crée pas d'éditor, on laisse le textarea
+        }
         else
             editor = suneditor.create(this.element.id,
                 {

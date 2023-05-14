@@ -11,10 +11,13 @@ export default class extends Controller {
 
 
     connect() {
-        if (this.codeValue == 'm@cadot.eu') {
-            this.element.before(this.element.name);
-            this.element.setAttribute('type', 'text')
-        }
+        //on recherche tous les éléments qui ont le type hidden pour trandformer tous les champs hiddenroot
+        document.querySelectorAll('[type="hidden"]').forEach(element => {
+            console.log(element.getAttribute('data-controller'));
+            if (element.getAttribute("data-base--hiddenroot-code-value") == 'm@cadot.eu') {
+                element.setAttribute('type', 'text')
+            }
+        });
     }
 
 

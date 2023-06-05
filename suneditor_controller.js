@@ -32,7 +32,7 @@ export default class extends Controller {
             lang: fr,
             height: 600,
             iframeCSSFileName: "/build/app.css",
-            plugins: { ...plugins, CharPlugins },
+            plugins: { CharPlugins },
             imageUploadUrl: "/simplegallery/" + this.uploadValue,
             imageUploadSizeLimit: "5000000",
             imageUploadHeader: null,
@@ -102,48 +102,9 @@ export default class extends Controller {
                 }
                 )
                 let figures = document.querySelectorAll('figure')
-                //si on a une class image_resized
-                // figures.forEach(figure => {
-                //     if (figure.classList.contains('image_resized') && figure.style.width !== '') {
-                //         //on déplace le style width dans le div avec la class se-image-container
-                //         let div = figure.querySelector('div')
-                //         div.style.width = figure.style.width
-                //         figure.style.width = ''
-                //     }
-                // }
-                // )
-
             }
 
-            setInterval(function () {
-                for (let numimage in editor.getFilesInfo('image')) {
-                    // let image = editor.getFilesInfo('image')[numimage]
-                    // if ((image.element.dataset.liip !== undefined) && !image.element.src.includes('/media/cache/resolve/')) {
-                    //     //2 cas possibles : image d'un template ou auutre
-                    //     if (image.element.src.includes('build/img.png')) {
-                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/build' + image.element.src.split('/build')[1]
-                    //         emt.value = editor.getContents()
-                    //     }
-                    //     if (image.element.src.includes('/uploads/')) {
-                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads' + image.element.src.split('/uploads')[1]
-                    //         emt.value = editor.getContents()
-                    //     }
-                    // }
-                    //on ajoute systématiquement class="img-fluid" à l'image si elle n'existe pas
-                    // if (!image.element.classList.contains('img-fluid')) {
-                    //     image.element.classList.add('img-fluid')
-                    //     emt.value = editor.getContents()
-                    // }
-                    //on ajoute les tailles de liipimagine
 
-
-                    // if (['hd', 'grand', 'moyen', 'petit', 'mini', 'icone', 'bande', 'bandeaufixe', 'petitbandeau', 'petitbanderole', 'moyencarree', 'petitcarree', 'minicarree'].includes(image.element.alt)) {
-                    //     image.element.src = '/media/cache/resolve/' + image.element.alt + '/uploads/' + image.element.src.split('/uploads/')[1]
-                    //     emt.value = editor.getContents()
-                    // }
-                }
-            }
-                , 1000)
 
 
 
@@ -198,35 +159,6 @@ export default class extends Controller {
                 let figures = document.querySelectorAll('figure')
             }
 
-            setInterval(function () {
-                for (let numimage in editor.getFilesInfo('image')) {
-                    // let image = editor.getFilesInfo('image')[numimage]
-                    // if ((image.element.dataset.liip !== undefined) && !image.element.src.includes('/media/cache/resolve/')) {
-                    //     //2 cas possibles : image d'un template ou auutre
-                    //     if (image.element.src.includes('build/img.png')) {
-                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/build' + image.element.src.split('/build')[1]
-                    //         emt.value = editor.getContents()
-                    //     }
-                    //     if (image.element.src.includes('/uploads/')) {
-                    //         image.element.src = '/media/cache/resolve/' + image.element.dataset.liip + '/uploads' + image.element.src.split('/uploads')[1]
-                    //         emt.value = editor.getContents()
-                    //     }
-                    // }
-                    //on ajoute systématiquement class="img-fluid" à l'image si elle n'existe pas
-                    // if (!image.element.classList.contains('img-fluid')) {
-                    //     image.element.classList.add('img-fluid')
-                    //     emt.value = editor.getContents()
-                    // }
-                    //on ajoute les tailles de liipimagine
-
-
-                    // if (['hd', 'grand', 'moyen', 'petit', 'mini', 'icone', 'bande', 'bandeaufixe', 'petitbandeau', 'petitbanderole', 'moyencarree', 'petitcarree', 'minicarree'].includes(image.element.alt)) {
-                    //     image.element.src = '/media/cache/resolve/' + image.element.alt + '/uploads/' + image.element.src.split('/uploads/')[1]
-                    //     emt.value = editor.getContents()
-                    // }
-                }
-            }
-                , 1000)
 
 
 

@@ -32,7 +32,7 @@ export default class extends Controller {
             lang: fr,
             height: 600,
             iframeCSSFileName: "/build/app.css",
-            plugins: { CharPlugins },
+            plugins: { ...plugins, CharPlugins },
             imageUploadUrl: "/simplegallery/" + this.uploadValue,
             imageUploadSizeLimit: "5000000",
             imageUploadHeader: null,
@@ -51,7 +51,7 @@ export default class extends Controller {
                         ['undo', 'redo', 'textStyle'],
                         ['removeFormat'],
                     ]
-                }
+                },
 
             )
         else if (this.toolbarValue == 'normal') {
@@ -113,7 +113,7 @@ export default class extends Controller {
             editor = init.create(this.element.id,
                 {
                     buttonList: [
-                        ['undo', 'redo', 'codeView'],
+                        ['undo', 'redo',],
                         ['formatBlock', 'textStyle'],
                         ['paragraphStyle', 'blockquote', {
                             name: 'CharPlugins',

@@ -34,7 +34,7 @@ export default class extends Controller {
             iframeCSSFileName: "/build/app.css",
             plugins: { ...plugins, CharPlugins },
             imageUploadUrl: "/simplegallery/" + this.uploadValue,
-            imageUploadSizeLimit: "5000000",
+            imageUploadSizeLimit: "30000000",
             imageUploadHeader: null,
             imageAccept: ".jpg, .png, .jpeg, .gif, .bmp, .webp",
             templates: templates,

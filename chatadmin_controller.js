@@ -9,6 +9,7 @@ export default class extends Controller {
         stop: Boolean,
         destination: String,
         card: String,
+        person: String,
         cards: String,
         token: String,
         reponse: String,
@@ -27,8 +28,21 @@ export default class extends Controller {
         const csrf = JSON.parse(this.csrfValue);
         const chats = await fetch(`/admin/chatGet`);
         const chatsJson = await chats.json();
-        let retour = this.cardsValue;
         let cards = '';
+        let persons = '';
+        let cardseul = '';
+        //si on a dans l'url un id de chat*
+        //on récupère le dernier nombre dans l'url
+        const url = window.location.href;
+        let id = url.split('/').pop();
+        //si id est un nombre
+        if (!isNaN(id)) {
+            id = parseInt(id);
+        }
+        else {
+            id = null
+        }
+        //on boucle sur les chats
         chatsJson.forEach(chat => {
             let card = '';
             //on boucle sur les messages
@@ -38,10 +52,15 @@ export default class extends Controller {
                 else
                     card += this.questionValue.replaceAll('QUESTION', message.texte).replaceAll('DATE', message.created_in)
             })
-            cards += this.cardValue.replaceAll('CARD', card).replaceAll('CHAT', chat.id).replaceAll('DATE', chat.updated_in).replaceAll('CSRF', csrf[chat.id]).replaceAll('TOKEN', chat.user);
+            //cards += this.cardValue.replaceAll('CARD', card).replaceAll('CHAT', chat.id).replaceAll('DATE', chat.updated_in).replaceAll('CSRF', csrf[chat.id]).replaceAll('TOKEN', chat.user);
+            if (id == chat.id) {
+                cardseul = this.cardValue.replaceAll('CARD', card).replaceAll('CHAT', chat.id).replaceAll('DATE', chat.updated_in).replaceAll('CSRF', csrf[chat.id]).replaceAll('TOKEN', chat.user);
+            }
+            persons += this.personValue.replaceAll('DATE', chat.updated_in).replaceAll('LASTMESSAGE', chat.messages[0].texte).replaceAll('CHAT', chat.id).replaceAll('CSRF', csrf[chat.id]).replaceAll('TOKEN', chat.user).replaceAll('TYPE', chat.messages[0].type);
         });
-        retour = this.cardsValue.replaceAll('CARDS', cards)
-        this.destinationTarget.innerHTML = retour;
+
+        this.destinationTarget.innerHTML = this.cardsValue.replaceAll('CARD', cardseul).replaceAll('PERSONS', persons);
+
     }
     pause() {
         this.stopValue = true;

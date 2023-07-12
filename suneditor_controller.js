@@ -16,7 +16,8 @@ export default class extends Controller {
 
     static values = {
         toolbar: String,
-        upload: { type: String, default: 'simpleimage' }
+        upload: { type: String, default: 'simpleimage' },
+        init: { type: String, default: '{}' }
     }
 
 
@@ -25,10 +26,11 @@ export default class extends Controller {
         const e = this.element;
         let editor;
 
+        //merge t et initValue
         /* -------------------------- création des plugins -------------------------- */
 
         /* ------------------------- initialisation globale ------------------------- */
-        const init = suneditor.init({
+        let tempinit = {
             lang: fr,
             height: 600,
             iframeCSSFileName: "/build/app.css",
@@ -38,7 +40,8 @@ export default class extends Controller {
             imageUploadHeader: null,
             imageAccept: ".jpg, .png, .jpeg, .gif, .bmp, .webp",
             templates: templates,
-        })
+        };
+        const init = suneditor.init({ ...tempinit, ...JSON.parse(this.initValue) });
 
         /* ------------------------ les différentes tollbars ------------------------ */
         if (this.toolbarValue == 'full')

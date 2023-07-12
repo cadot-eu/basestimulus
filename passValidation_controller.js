@@ -7,14 +7,17 @@ export default class extends Controller {
 
     connect() {
         let bouton = this.element;
-        bouton.addEventListener("click", function () {
+        bouton.addEventListener("click", function (e) {
+            e.preventDefault();
             //boucle sur les elements du form
             let elements = bouton.form.elements;
+
             for (let i = 0; i < elements.length; i++) {
                 //on supprime le required
                 elements[i].removeAttribute("required");
             }
-
+            //on soumet le form
+            bouton.form.submit();
 
         });
     }

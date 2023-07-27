@@ -176,6 +176,15 @@ export default class extends Controller {
                 }
 
             )
+        else if (this.toolbarValue == 'image')
+            editor = init.create(this.element.id,
+                {
+                    buttonList: [
+                        ['undo', 'redo', 'image'],
+                    ]
+                }
+
+            )
         else if (this.toolbarValue == 'string') { // on ne crée pas d'éditor, on laisse le textarea
         }
         else
@@ -184,6 +193,8 @@ export default class extends Controller {
                     buttonList: [
                         ['undo', 'redo', 'removeFormat']
                     ]
+                    ,
+
                 }
 
             )

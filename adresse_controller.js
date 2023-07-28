@@ -1,108 +1,83 @@
-/**
-    * adresse
-    * attr:{"data-base--adresse-limit-value":15}
-    * attr:{"data-base--adresse-destination-value":"bien_adresseduselect"}
-    */
+import { Controller } from '@hotwired/stimulus';
 
-import { Controller } from '@hotwired/stimulus'
-
-let that = null;
-let timer = 0; //debunces
-let limit;
-let message;
-let error;
-let select;
-let destination; //contient l'élément où on veut afficher si une adresse a été choisie dans le select
-let proprietes; //contient l'élément où on veut afficher les propriétés de l'adresse choisie dans le select
 export default class extends Controller {
-
     static values = {
         limit: { type: Number, default: 10 },
         destination: String,
-        proprietes: String
+        proprietes: String,
+        longitude: String,
+        latitude: String,
+    };
 
-    }
     connect() {
-        if (this.destinationValue != null) {
-            destination = document.getElementById(this.destinationValue);
-        }
-        else {
-            destination = this.element;
-        }
-        if (this.proprietesValue != null) {
-            proprietes = document.getElementById(this.proprietesValue);
-        }
-        limit = this.limitValue;
-        that = this.element;
-        //create error
-        error = document.createElement('div');
-        error.classList.add('invalid-feedback');
+        this.select = document.createElement('select');
+        this.select.classList.add('form-select');
+        this.select.setAttribute('aria-label', 'adresse autocomplete');
+        this.select.hidden = true;
+        this.element.insertAdjacentElement('afterend', this.select);
 
-        that.insertAdjacentElement('afterend', error);
-        //create select
-        select = document.createElement('select');
-        select.classList.add('form-select');
-        select.setAttribute('aria-label', 'adresse autocomplete');
-        select.hidden = true;
-        that.insertAdjacentElement('afterend', select);
+        this.error = document.createElement('div');
+        this.error.classList.add('invalid-feedback');
+        this.element.insertAdjacentElement('afterend', this.error);
 
-        //on ajoute un event listener sur l'input
-        this.element.addEventListener('input', function (input) {
+        this.limit = this.limitValue;
+        this.destination = this.destinationValue ? document.getElementById(this.destinationValue) : this.element;
+        this.proprietes = this.proprietesValue ? document.getElementById(this.proprietesValue) : null;
+        this.longitude = this.longitudeValue ? document.getElementById(this.longitudeValue) : null;
+        this.latitude = this.latitudeValue ? document.getElementById(this.latitudeValue) : null;
+
+        this.element.addEventListener('input', (input) => {
             input.target.classList.remove('is-ok');
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                //on récupère les données de l'api
-                fetchAsync()
-                    .then(data => {
-
-                        //si on a une erreur on l'affiche
-                        if (data.code == 400) {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.fetchData()
+                    .then((data) => {
+                        if (data.code === 400) {
                             switch (data.message) {
-                                case "q must contain between 3 and 200 chars and start with a number or a letter":
-                                    message = "Le champ doit contenir entre 3 et 200 caractères et commencer par un chiffre ou une lettre";
+                                case 'q must contain between 3 and 200 chars and start with a number or a letter':
+                                    this.errorMessage = 'Le champ doit contenir entre 3 et 200 caractères et commencer par un chiffre ou une lettre';
                                     break;
                             }
-                            error.innerHTML = message;
-                            select.hidden = true;
+                            this.showError(this.errorMessage);
+                            this.select.hidden = true;
                             input.target.classList.add('is-invalid');
                             input.target.classList.remove('is-valid');
                             return;
                         }
                         input.target.classList.remove('is-invalid');
-                        //si on a pas de résultat on affiche un message
                         if (data.features.length > 0) {
                             let options = '<option value="">Choisir une adresse</option>';
                             data.features.forEach((element, index) => {
-                                options += '<option value="' + index + '">' + element.properties.label + '</option>';
+                                options += `<option value="${index}">${element.properties.label}</option>`;
                             });
-                            //on ajoute les options et on affiche le select
-                            if (select.hidden == true) {
-                                select.innerHTML = options;
-                                //on ajoute un event listener sur le select
-                                select.addEventListener('change', function (e) {
-                                    that.value = data.features[this.value].properties.label;
-                                    select.hidden = true;
-                                    destination.value = input.target.value;
-                                    if (proprietes != null)
-                                        proprietes.value = JSON.stringify(data.features[this.value].properties);
-                                });
-                            }
-                            else { //si le select est déjà affiché on change juste les options
-                                select.innerHTML = options;
-                            }
-                            select.hidden = false;
-                        }
-                    }
-                    )
-            }, 500);
 
-        })
+                            if (this.select.hidden) {
+                                this.select.innerHTML = options;
+                                this.select.addEventListener('change', (e) => {
+                                    this.element.value = data.features[e.target.value].properties.label;
+                                    this.select.hidden = true;
+                                    if (this.destination) this.destination.value = input.target.value;
+                                    if (this.proprietes) this.proprietes.value = JSON.stringify(data.features[e.target.value].properties);
+                                    if (this.longitude) this.longitude.value = data.features[e.target.value].geometry.coordinates[0];
+                                    if (this.latitude) this.latitude.value = data.features[e.target.value].geometry.coordinates[1];
+                                });
+                            } else {
+                                this.select.innerHTML = options;
+                            }
+                            this.select.hidden = false;
+                        }
+                    });
+            }, 500);
+        });
     }
 
-}
+    async fetchData() {
+        const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${this.element.value}&autocomplete=1&limit=${this.limit}`);
+        const data = await response.json();
+        return data;
+    }
 
-async function fetchAsync() {
-    let response = await fetch('https://api-adresse.data.gouv.fr/search/?q=' + that.value + '&autocomplete=1&limit=' + limit)
-    let data = await response.json();
-    return data;
+    showError(message) {
+        this.error.innerHTML = message;
+    }
 }

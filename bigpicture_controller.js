@@ -32,7 +32,6 @@ export default class extends Controller {
                     ...options // écrase les options en ajoutant  data-base--bigpicture-options-value
                 }
             );
-            document.querySelector('#bp_caption').style('opacity', 1)
         };
 
     }

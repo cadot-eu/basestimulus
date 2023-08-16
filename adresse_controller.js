@@ -20,13 +20,13 @@ export default class extends Controller {
         this.error.classList.add('invalid-feedback');
         this.element.insertAdjacentElement('afterend', this.error);
 
+        this.entity = this.element.name.split('[')[0];
         this.limit = this.limitValue;
         this.destination = this.destinationValue ? document.getElementById(this.destinationValue) : this.element;
-        this.proprietes = this.proprietesValue ? document.getElementById(this.proprietesValue) : null;
-        this.longitude = this.longitudeValue ? document.getElementById(this.longitudeValue) : null;
-        this.latitude = this.latitudeValue ? document.getElementById(this.latitudeValue) : null;
-
-        this.element.addEventListener('input', (input) => {
+        this.proprietes = document.getElementById(this.entity + '_' + this.proprietesValue);
+        this.longitude = document.getElementById(this.entity + '_' + this.longitudeValue);
+        this.latitude = document.getElementById(this.entity + '_' + this.latitudeValue);
+        this.element.addEventListener('keyup', (input) => {
             input.target.classList.remove('is-ok');
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
@@ -48,7 +48,7 @@ export default class extends Controller {
                         if (data.features.length > 0) {
                             let options = '<option value="">Choisir une adresse</option>';
                             data.features.forEach((element, index) => {
-                                options += `<option value="${index}">${element.properties.label}</option>`;
+                                options += `<option value="${index}">${element.properties.label}+${index}</option>`;
                             });
 
                             if (this.select.hidden) {

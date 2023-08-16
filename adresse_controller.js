@@ -48,7 +48,7 @@ export default class extends Controller {
                         if (data.features.length > 0) {
                             let options = '<option value="">Choisir une adresse</option>';
                             data.features.forEach((element, index) => {
-                                options += `<option value="${index}">${element.properties.label}+${index}</option>`;
+                                options += `<option value="${index}">${element.properties.label}</option>`;
                             });
 
                             if (this.select.hidden) {

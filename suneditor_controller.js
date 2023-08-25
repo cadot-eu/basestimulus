@@ -106,8 +106,11 @@ export default class extends Controller {
                 )
                 let figures = document.querySelectorAll('figure')
             }
-
-
+            //on cache le bouton code sauf pour superadmin
+            editor.onload = function () {
+                if (document.getElementById('rolesp').value != true)
+                    document.querySelector('.se-code-view-enabled').remove();
+            }
 
 
 
@@ -209,4 +212,5 @@ export default class extends Controller {
 
     }
 }
+
 

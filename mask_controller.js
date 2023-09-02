@@ -13,6 +13,7 @@ export default class extends Controller {
     static values = {
         options: { type: Object, default: {} },
         alias: { type: String, default: "number" },
+        blockSubmit: { type: Boolean, default: false }
     }
 
     connect() {
@@ -86,8 +87,13 @@ export default class extends Controller {
                                 error.classList.add('invalid-feedback');
                                 error.innerHTML = data.header.message;
                                 e.target.parentNode.appendChild(error);
-                                //on bloque le submit
-                                e.target.form.querySelector('#bouton_submit').disabled = true;
+                                //on bloque le submit si le siret n'est pas valide et si on a demandé à bloquer le submit
+                                if (this.blockSubmitValue == true) {
+                                    e.target.form.querySelector('#bouton_submit').disabled = true;
+                                }
+                                else {
+                                    e.target.form.querySelector('#bouton_submit').disabled = false;
+                                }
                             }
                         }
                         );

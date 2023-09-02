@@ -5,6 +5,16 @@ import fr from 'suneditor/src/lang/fr.js'
 import CharPlugins from "../../js/suneditor/characteres_plugins.js";
 const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
+
+//utilisation
+//<textarea data-controller="base--suneditor" data-action="base--suneditor#update" data-base--suneditor-toolbar-value="full" data-base--suneditor-init-value='{"buttonList": [["undo", "redo", "removeFormat"]]}'>
+//dans une entity
+// /**
+//  * normal
+//  * ATTR:{"data-base--suneditor-height-value":"100"}
+// */
+
+
 /* ---------------- transformation des textareas en fckeditor --------------- */
 
 export default class extends Controller {
@@ -17,7 +27,8 @@ export default class extends Controller {
     static values = {
         toolbar: String,
         upload: { type: String, default: 'simpleimage' },
-        init: { type: String, default: '{}' }
+        init: { type: String, default: '{}' },
+        height: { type: String, default: '600' }
     }
 
 
@@ -32,7 +43,7 @@ export default class extends Controller {
         /* ------------------------- initialisation globale ------------------------- */
         let tempinit = {
             lang: fr,
-            height: 600,
+            height: this.heightValue,
             iframeCSSFileName: "/build/app.css",
             plugins: { ...plugins, CharPlugins },
             imageUploadUrl: "/simplegallery/" + this.uploadValue,

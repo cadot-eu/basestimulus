@@ -6,6 +6,11 @@ import { Controller } from '@hotwired/stimulus'
 /* ----------------- pour un pattern ----------------- */
 // <input type="text" data-controller="base--mask" data-action="base--mask#update" data-base--mask-alias-value="pattern" data-base--mask-options-value='{"mask": "0000-0000-0000-0000"}' >
 
+//et dans un entity
+// /**
+//  * ATTR:{"data-base--mask-options-value":"{\"thousandsSeparator\": \" \"}"}
+//  * ATTR:{"data-base--mask-options-value":"{"lazy": false}"}
+
 
 
 import IMask from 'imask';
@@ -20,6 +25,7 @@ export default class extends Controller {
         this.update()
     }
     update() {
+        this.element.removeAttribute('required')
         if (this.aliasValue == "number") {
             IMask(this.element,
                 {
@@ -37,7 +43,38 @@ export default class extends Controller {
         if (this.aliasValue == "telephone") {
             IMask(this.element,
                 {
-                    mask: '00.00.00.00.00',
+                    mask: [
+                        {
+                            mask: '00.00.00.00.00', // Masque sans indicatif
+                            startsWith: '0', // Indique que l'indicatif international est facultatif
+                            maxLength: 17 // Longueur maximale de la saisie sans indicatif
+                        },
+                        {
+                            mask: '+{00} 000.00.00.00',
+                            startsWith: '+', // Indique que l'indicatif international est facultatif
+                            maxLength: 18 // Longueur maximale de la saisie
+                        }
+                    ],
+                    ...this.optionsValue
+                }
+            );
+        }
+        if (this.aliasValue == "bic") {
+            // dans optionsValue on peut passer des options pour le masque
+            IMask(this.element,
+                {
+                    mask: /^[A-Za-z]{0,11}$/,
+                    prepareChar: str => str.toUpperCase(),
+                    ...this.optionsValue
+                }
+            );
+        }
+        if (this.aliasValue == "iban") {
+            // dans optionsValue on peut passer des options pour le masque
+            IMask(this.element,
+                {
+                    mask: 'aa00 0000 0000 0000 0000 0000 000',
+                    prepareChar: str => str.toUpperCase(),
                     ...this.optionsValue
                 }
             );

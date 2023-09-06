@@ -9,6 +9,7 @@ export default class extends Controller {
 
     connect() {
         //ajoyt d'un événement
+        let element = this.element;
         this.element.addEventListener('click', (e) => {
             e.preventDefault();
             Swal.fire({
@@ -19,7 +20,13 @@ export default class extends Controller {
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.element.form.requestSubmit();
+                    //on transforme le nom en input hidden
+                    let input = document.createElement('input')
+                    input.setAttribute('type', 'hidden')
+                    input.setAttribute('name', element.name)
+                    input.setAttribute('value', element.value)
+                    this.element.parentNode.insertBefore(input, element)
+                    element.form.requestSubmit();
                 }
             })
         })

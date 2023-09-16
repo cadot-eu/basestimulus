@@ -11,6 +11,8 @@ export default class extends Controller {
         //ajoyt d'un événement
         let element = this.element;
         this.element.addEventListener('click', (e) => {
+            //suppression des autre addeventlistener pour éviter interférence exemple tooltip
+            this.element.removeEventListener('click', this.click)
             e.preventDefault();
             Swal.fire({
                 icon: 'warning',
@@ -20,13 +22,19 @@ export default class extends Controller {
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //on transforme le nom en input hidden
-                    let input = document.createElement('input')
-                    input.setAttribute('type', 'hidden')
-                    input.setAttribute('name', element.name)
-                    input.setAttribute('value', element.value)
-                    this.element.parentNode.insertBefore(input, element)
-                    element.form.requestSubmit();
+                    //si on a un href ou un data href on va sur ce lien
+                    if (element.getAttribute('href') || element.getAttribute('data-href')) {
+                        window.location.href = element.getAttribute('href') || element.getAttribute('data-href')
+                    }
+                    else {
+                        //on transforme le nom en input hidden pour garder la valeur envoyer
+                        let input = document.createElement('input')
+                        input.setAttribute('type', 'hidden')
+                        input.setAttribute('name', element.name)
+                        input.setAttribute('value', element.value)
+                        this.element.parentNode.insertBefore(input, element)
+                        element.form.requestSubmit();
+                    }
                 }
             })
         })

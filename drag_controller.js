@@ -76,7 +76,7 @@ export default class extends Controller {
                     success: (data) => {
                         //notyf.success('ordre enregistré');
                         //on réactualise la page
-                        //window.location.reload();
+                        window.location.reload();
                     },
                     error: (data) => {
                         Swal.fire({

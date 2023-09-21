@@ -7,15 +7,18 @@ const notyf = new Notyf();
 
 // Complete SortableJS (with all plugins)
 import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
-import { ajax } from 'jquery';
 
+let num;
 export default class extends Controller {
     static values = {
         query: { default: 'div', type: String },
+        queryid: { default: '', type: String }, //défini le queryselector à aller chercher et l'attribut à prendre ex:input.id, si pas défini prend la valeur de data-num
         entity: String
+
     }
 
     connect() {
+        let queryid = this.queryidValue
         const entity = this.entityValue
         var sortable = new Sortable(this.element, {
             draggable: this.queryValue,  // Specifies which items inside the element should be draggable
@@ -23,22 +26,16 @@ export default class extends Controller {
             setData: function (/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
                 dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
             },
-            // Element dragging ended
-            onEnd: function (/**Event*/evt) {
-                var itemEl = evt.item;  // dragged HTMLElement
-                evt.to;    // target list
-                evt.from;  // previous list
-                evt.oldIndex;  // element's old index within old parent
-                evt.newIndex;  // element's new index within new parent
-                evt.oldDraggableIndex; // element's old index within old parent, only counting draggable elements
-                evt.newDraggableIndex; // element's new index within new parent, only counting draggable elements
-                evt.clone // the clone element
-                evt.pullMode;  // when item is in another sortable: `"clone"` if cloning, `true` if moving
-            },
-
-            // Called by any change to the list (add / update / remove)
             onSort: function (/**Event*/evt) {
-                const url = '/admin/changeordre/' + entity + '/' + evt.item.getAttribute('data-num') + '/' + evt.newIndex;
+                if (queryid != "") {
+                    //on regarde si on a un point dans le query comme input.value, value retourne l'attribut
+                    let query = evt.item.querySelector(queryid.split(".")[0]);
+                    num = query.getAttribute(queryid.split(".")[1]);
+
+                }
+                else
+                    num = evt.item.getAttribute('data-num');
+                const url = '/admin/changeordre/' + entity + '/' + num + '/' + evt.newIndex;
                 //on lance un ajax et on vérifie que l'on a true et on affiche un message sinon on on affiche une erreur
                 fetch(url)
                     .then(response => {

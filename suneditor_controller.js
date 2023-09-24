@@ -6,6 +6,7 @@ import CharPlugins from "../../js/suneditor/characteres_plugins.js";
 import plugin_dialog from "../../js/suneditor/plugin_dialog.js";
 const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
+import Swal from 'sweetalert2';
 
 //utilisation
 //<textarea data-controller="base--suneditor" data-action="base--suneditor#update" data-base--suneditor-toolbar-value="full" data-base--suneditor-init-value='{"buttonList": [["undo", "redo", "removeFormat"]]}'>
@@ -37,7 +38,16 @@ export default class extends Controller {
         /* ----------------------------- initialistaion ----------------------------- */
         const e = this.element;
         let editor;
-
+        /* ------------------------------- protection ------------------------------- */
+        if (this.element.value.length > 10000) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Contenu excessif',
+                text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+            })
+            document.getElementById('bouton_submit').disabled = true
+            document.getElementById('bouton_submit').classList.add('btn-danger')
+        }
         //merge t et initValue
         /* -------------------------- création des plugins -------------------------- */
 
@@ -224,6 +234,28 @@ export default class extends Controller {
         if (this.toolbarValue != 'string') {
             editor.onChange = function (contents, core) {
                 e.value = contents
+            }
+        }
+        //sécurité sur la taille du contenu
+        editor.onChange = function (contents, core) {
+            // objetSelect.contenu | striptags | length / 100 / 30
+            if (contents.length > 30000)//>10 mn de lecture
+            {
+                if (document.getElementById('bouton_submit').disabled == false) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Contenu excessif',
+                        text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                    })
+                    document.getElementById('bouton_submit').disabled = true
+                    document.getElementById('bouton_submit').classList.add('btn-danger')
+                }
+            }
+            else {
+
+                //on débloque le bouton envoyer
+                document.getElementById('bouton_submit').disabled = false
+                document.getElementById('bouton_submit').classList.remove('btn-danger')
             }
         }
     }

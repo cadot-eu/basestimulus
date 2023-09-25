@@ -7,6 +7,7 @@ import plugin_dialog from "../../js/suneditor/plugin_dialog.js";
 const { filetemplates } = require('/assets/jssite/suneditor/templates.js').default;
 let templates = JSON.parse(filetemplates);
 import Swal from 'sweetalert2';
+import { tempsDeLecture } from '/app/assets/js/tempsDeLecture.js';
 
 //utilisation
 //<textarea data-controller="base--suneditor" data-action="base--suneditor#update" data-base--suneditor-toolbar-value="full" data-base--suneditor-init-value='{"buttonList": [["undo", "redo", "removeFormat"]]}'>
@@ -39,7 +40,7 @@ export default class extends Controller {
         const e = this.element;
         let editor;
         /* ------------------------------- protection ------------------------------- */
-        if (this.element.value.length > 10000) {
+        if (tempsDeLecture(this.element.value) > 15) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Contenu excessif',
@@ -239,7 +240,7 @@ export default class extends Controller {
         //sécurité sur la taille du contenu
         editor.onChange = function (contents, core) {
             // objetSelect.contenu | striptags | length / 100 / 30
-            if (contents.length > 30000)//>10 mn de lecture
+            if (tempsDeLecture(contents) > 15)//>10 mn de lecture
             {
                 if (document.getElementById('bouton_submit').disabled == false) {
                     Swal.fire({

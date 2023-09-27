@@ -31,7 +31,8 @@ export default class extends Controller {
         toolbar: String,
         upload: { type: String, default: 'simpleimage' },
         init: { type: String, default: '{}' },
-        height: { type: String, default: '600' }
+        height: { type: String, default: '600' },
+        time: { type: Number, default: 15 },
     }
 
 
@@ -40,11 +41,11 @@ export default class extends Controller {
         const e = this.element;
         let editor;
         /* ------------------------------- protection ------------------------------- */
-        if (tempsDeLecture(this.element.value) > 15) {
+        if (tempsDeLecture(this.element.value) > this.timeValue) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Contenu excessif',
-                text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.timeValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
             })
             document.getElementById('bouton_submit').disabled = true
             document.getElementById('bouton_submit').classList.add('btn-danger')
@@ -246,7 +247,7 @@ export default class extends Controller {
                     Swal.fire({
                         icon: 'warning',
                         title: 'Contenu excessif',
-                        text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                        text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.timeValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
                     })
                     document.getElementById('bouton_submit').disabled = true
                     document.getElementById('bouton_submit').classList.add('btn-danger')

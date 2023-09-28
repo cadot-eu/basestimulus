@@ -31,7 +31,8 @@ export default class extends Controller {
         toolbar: String,
         upload: { type: String, default: 'simpleimage' },
         init: { type: String, default: '{}' },
-        height: { type: String, default: '600' }
+        height: { type: String, default: '600' },
+        temps: { type: Number, default: 15 }
     }
 
 
@@ -40,11 +41,11 @@ export default class extends Controller {
         const e = this.element;
         let editor;
         /* ------------------------------- protection ------------------------------- */
-        if (tempsDeLecture(this.element.value) > 15) {
+        if (tempsDeLecture(this.element.value) > this.tempsValue) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Contenu excessif',
-                text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.tempsValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
             })
             document.getElementById('bouton_submit').disabled = true
             document.getElementById('bouton_submit').classList.add('btn-danger')
@@ -249,13 +250,13 @@ export default class extends Controller {
     //sécurité sur la taille du contenu
     security(contents) {
         // objetSelect.contenu | striptags | length / 100 / 30
-        if (tempsDeLecture(contents) > 15)//>10 mn de lecture
+        if (tempsDeLecture(contents) > this.tempsValue)//>10 mn de lecture
         {
             if (document.getElementById('bouton_submit').disabled == false) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Contenu excessif',
-                    text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                    text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.tempsValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
                 })
                 document.getElementById('bouton_submit').disabled = true
                 document.getElementById('bouton_submit').classList.add('btn-danger')

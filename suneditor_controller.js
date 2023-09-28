@@ -31,8 +31,7 @@ export default class extends Controller {
         toolbar: String,
         upload: { type: String, default: 'simpleimage' },
         init: { type: String, default: '{}' },
-        height: { type: String, default: '600' },
-        time: { type: Number, default: 15 },
+        height: { type: String, default: '600' }
     }
 
 
@@ -41,11 +40,11 @@ export default class extends Controller {
         const e = this.element;
         let editor;
         /* ------------------------------- protection ------------------------------- */
-        if (tempsDeLecture(this.element.value) > this.timeValue) {
+        if (tempsDeLecture(this.element.value) > 15) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Contenu excessif',
-                text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.timeValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
             })
             document.getElementById('bouton_submit').disabled = true
             document.getElementById('bouton_submit').classList.add('btn-danger')
@@ -137,6 +136,7 @@ export default class extends Controller {
                 }
                 )
                 let figures = document.querySelectorAll('figure')
+                this.security(contents)
             }
             //on cache le bouton code sauf pour superadmin
             editor.onload = function () {
@@ -195,6 +195,7 @@ export default class extends Controller {
                 }
                 )
                 let figures = document.querySelectorAll('figure')
+                this.security(contents)
             }
 
 
@@ -236,34 +237,36 @@ export default class extends Controller {
         if (this.toolbarValue != 'string') {
             editor.onChange = function (contents, core) {
                 e.value = contents
+                this.security(contents)
             }
         }
-        //sécurité sur la taille du contenu
-        editor.onChange = function (contents, core) {
-            // objetSelect.contenu | striptags | length / 100 / 30
-            if (tempsDeLecture(contents) > 15)//>10 mn de lecture
-            {
-                if (document.getElementById('bouton_submit').disabled == false) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Contenu excessif',
-                        text: 'Le contenu est trop long et dépasse un temps de lecture de ' + this.timeValue + ' mn. Le bouton envoyer est désactivé pour protéger le serveur.',
-                    })
-                    document.getElementById('bouton_submit').disabled = true
-                    document.getElementById('bouton_submit').classList.add('btn-danger')
-                }
-            }
-            else {
 
-                //on débloque le bouton envoyer
-                document.getElementById('bouton_submit').disabled = false
-                document.getElementById('bouton_submit').classList.remove('btn-danger')
-            }
-        }
     }
 
     disconnect() {
 
+    }
+    //sécurité sur la taille du contenu
+    security(contents) {
+        // objetSelect.contenu | striptags | length / 100 / 30
+        if (tempsDeLecture(contents) > 15)//>10 mn de lecture
+        {
+            if (document.getElementById('bouton_submit').disabled == false) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Contenu excessif',
+                    text: 'Le contenu est trop long et dépasse un temps de lecture de 10 mn. Le bouton envoyer est désactivé pour protéger le serveur.',
+                })
+                document.getElementById('bouton_submit').disabled = true
+                document.getElementById('bouton_submit').classList.add('btn-danger')
+            }
+        }
+        else {
+
+            //on débloque le bouton envoyer
+            document.getElementById('bouton_submit').disabled = false
+            document.getElementById('bouton_submit').classList.remove('btn-danger')
+        }
     }
 }
 

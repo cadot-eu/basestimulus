@@ -138,7 +138,7 @@ export default class extends Controller {
                 )
                 let figures = document.querySelectorAll('figure')
                 this.security(contents)
-            }
+            }.bind(this);
             //on cache le bouton code sauf pour superadmin
             editor.onload = function () {
                 if (document.getElementById('rolesp').value != true)
@@ -197,7 +197,7 @@ export default class extends Controller {
                 )
                 let figures = document.querySelectorAll('figure')
                 this.security(contents)
-            }
+            }.bind(this);
 
 
 
@@ -239,7 +239,7 @@ export default class extends Controller {
             editor.onChange = function (contents, core) {
                 e.value = contents
                 this.security(contents)
-            }
+            }.bind(this);
         }
 
     }
@@ -252,6 +252,7 @@ export default class extends Controller {
         // objetSelect.contenu | striptags | length / 100 / 30
         if (tempsDeLecture(contents) > this.tempsValue)//>10 mn de lecture
         {
+            console.log('contenu excessif')
             if (document.getElementById('bouton_submit').disabled == false) {
                 Swal.fire({
                     icon: 'warning',

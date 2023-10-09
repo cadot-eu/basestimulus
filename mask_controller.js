@@ -25,7 +25,7 @@ export default class extends Controller {
         this.update()
     }
     update() {
-        this.element.removeAttribute('required')
+        //this.element.removeAttribute('required')
         if (this.aliasValue == "number") {
             IMask(this.element,
                 {

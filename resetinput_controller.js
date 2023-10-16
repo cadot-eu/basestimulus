@@ -16,7 +16,6 @@ export default class extends Controller {
             let input = this.element.parentNode.querySelector('input');
             span.addEventListener("click", function () {
                 input.value = "";
-
             });
         }
     }

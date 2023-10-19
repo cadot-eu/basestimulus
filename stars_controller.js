@@ -1,4 +1,5 @@
-/* A Stimulus controller that is used to debounce the input of a form and send the form if is modified. */
+/*  This class is responsible for creating a star rating system. */
+
 import { Controller } from '@hotwired/stimulus'
 
 

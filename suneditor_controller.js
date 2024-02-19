@@ -203,6 +203,89 @@ export default class extends Controller {
 
 
         }
+        else if (this.toolbarValue == 'annonce') {
+            editor = init.create(this.element.id,
+                {
+                    buttonList: [
+                        ['undo', 'redo',],
+                        ['formatBlock', 'textStyle'],
+                        ['paragraphStyle', 'blockquote', {
+                            name: 'CharPlugins',
+                            dataCommand: 'CharPlugins',
+                            buttonClass: '',
+                            title: 'Charactères spéciaux',
+                            dataDisplay: 'submenu',
+                            innerHTML: '<i class="bi bi-translate"></i>',
+                        }],
+
+                        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                        ['removeFormat'],
+                        // '/', // Line break
+                        ['outdent', 'indent'],
+                        ['align', 'horizontalRule', 'list'],
+                        ['table', 'link', 'image', 'video', 'audio'],
+                        ['fullScreen'],
+                    ],
+                    formats: ['p', 'div', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', {
+                        tag: 'div', // Tag name
+                        name: 'page_break' || null, // default: tag name
+                        command: 'replace' || 'range' || 'free', // default: "replace"
+                        class: '__se__format__replace_page_break' || '__se__format__range_page_break' || '__se__format__free_page_break' || '__se__format__free__closure_page_break',
+                        style: 'page-break-after: always;' || null
+                    }]
+                }
+
+            )
+            //<div class="page-break"
+
+            let emt = this.element
+            editor.onChange = function (contents, core) {
+                emt.value = contents
+                //add class at table
+                let tables = document.querySelectorAll('table')
+                tables.forEach(table => {
+                    table.classList.add('table', 'table-striped', 'table-bordered', 'align-middle', 'text-center')
+                }
+                )
+                let figures = document.querySelectorAll('figure')
+                this.security(contents)
+            }.bind(this);
+
+
+
+
+        }
+        else if (this.toolbarValue == 'mini') {
+            editor = init.create(this.element.id,
+                {
+                    buttonList: [
+                        ['bold', 'underline', 'italic', 'strike'],
+                        ['align', 'horizontalRule', 'list'],
+                        ['table', 'link', 'image', 'video', 'audio'],
+                        ['fullScreen'],
+                    ],
+                }
+
+            )
+            //<div class="page-break"
+
+            let emt = this.element
+            editor.onChange = function (contents, core) {
+                emt.value = contents
+                //add class at table
+                let tables = document.querySelectorAll('table')
+                tables.forEach(table => {
+                    table.classList.add('table', 'table-striped', 'table-bordered', 'align-middle', 'text-center')
+                }
+                )
+                let figures = document.querySelectorAll('figure')
+                this.security(contents)
+            }.bind(this);
+
+
+
+
+        }
         else if (this.toolbarValue == 'simple')
             editor = suneditor.create(this.element.id,
                 {

@@ -25,6 +25,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css' // needs additional webpack co
 /* -------------------------------------------------------------------------- */
 // data-chart-data-value=...
 let calendar;
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
 
     static values = {

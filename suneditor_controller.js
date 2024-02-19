@@ -141,7 +141,7 @@ export default class extends Controller {
             }.bind(this);
             //on cache le bouton code sauf pour superadmin
             editor.onload = function () {
-                if (document.getElementById('rolesp').value != true)
+                if (document.getElementById('rolesp').value && document.getElementById('rolesp').value != true)
                     document.querySelector('.se-code-view-enabled').remove();
             }
 
@@ -223,6 +223,16 @@ export default class extends Controller {
 
             )
         else if (this.toolbarValue == 'string') { // on ne crée pas d'éditor, on laisse le textarea
+            //on transforme le textarea en input
+            let input = document.createElement('input')
+            input.type = 'text'
+            input.name = this.element.name
+            input.id = this.element.id
+            input.classList.add('form-control')
+            input.value = this.element.value
+            this.element.replaceWith(input)
+        }
+        else if (this.toolbarValue == 'textarea') {
         }
         else
             editor = suneditor.create(this.element.id,
@@ -235,7 +245,7 @@ export default class extends Controller {
                 }
 
             )
-        if (this.toolbarValue != 'string') {
+        if (this.toolbarValue != 'string' && this.toolbarValue != 'textarea') {
             editor.onChange = function (contents, core) {
                 e.value = contents
                 this.security(contents)

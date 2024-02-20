@@ -259,7 +259,7 @@ export default class extends Controller {
             editor = init.create(this.element.id,
                 {
                     buttonList: [
-                        ['bold', 'underline', 'italic', 'strike'],
+                        ['bold', 'underline', 'italic', 'strike', 'removeFormat'],
                         ['align', 'horizontalRule', 'list'],
                         ['table', 'link', 'image', 'video', 'audio'],
                         ['fullScreen'],

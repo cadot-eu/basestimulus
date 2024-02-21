@@ -20,6 +20,7 @@ export default class extends Controller {
     connect() {
         let queryid = this.queryidValue
         const entity = this.entityValue
+
         var sortable = new Sortable(this.element, {
             draggable: this.queryValue,  // Specifies which items inside the element should be draggable
 

@@ -12,32 +12,25 @@ let num;
 export default class extends Controller {
     static values = {
         query: { default: 'div', type: String },
-        queryid: { default: '', type: String }, //défini le queryselector à aller chercher et l'attribut à prendre ex:input.id, si pas défini prend la valeur de data-num
+        queryid: { default: '', type: String }, //défini le queryselector à aller chercher et l'attribut à prendre ex:input.id, si pas défini prend la valeur de data-id
         entity: String,
-        collection: String,
-        identity: Number,
+        ajax: { default: true, type: Boolean }, //pour envoyer ou pas l'ajax
+        champ: { default: "", type: String }
 
     }
 
     connect() {
         let queryid = this.queryidValue
         const entity = this.entityValue
-        const collection = this.collectionValue
-        const identity = this.identityValue
-        if (!entity)
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Entity n\'est pas défini'
-            })
+        const ajax = this.ajaxValue
+        const query = this.queryValue
+        const champ = this.champValue
         var sortable = new Sortable(this.element, {
             draggable: this.queryValue,  // Specifies which items inside the element should be draggable
-
             setData: function (/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
                 dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
             },
             onSort: function (/**Event*/evt) {
-                let url;
                 if (queryid != "") {
                     //on regarde si on a un point dans le query comme input.value, value retourne l'attribut
                     let query = evt.item.querySelector(queryid.split(".")[0]);
@@ -45,26 +38,34 @@ export default class extends Controller {
 
                 }
                 else
-                    num = evt.item.getAttribute('data-num');
-                if (!collection)
-                    url = '/admin/changeordre/' + entity + '/' + num + '/' + evt.newIndex;
-                else {
-                    url = '/admin/changeordre/' + entity + '/' + num + '/' + evt.newIndex + '/' + collection + '/' + identity;
-                }
-                //on lance un ajax et on vérifie que l'on a true et on affiche un message sinon on on affiche une erreur
-                fetch(url)
-                    .then(response => {
-                        notyf.success('L\'ordre a bien été modifié');
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur',
-                            text: error
+                    num = evt.item.getAttribute('data-id');
+                let url = '/admin/changeordre/' + entity + '/' + num + '/' + evt.newIndex;
+                if (champ != "") url += '/' + champ
+                if (ajax) {
+                    //on lance un ajax et on vérifie que l'on a true et on affiche un message sinon on on affiche une erreur
+                    fetch(url)
+                        .then(response => {
+                            notyf.success('L\'ordre a bien été modifié');
                         })
-                        return null;
-                    });
-
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur',
+                                text: error
+                            })
+                            return null;
+                        });
+                }
+                //on ajoute ou modifie le data-order
+                let ordrehidden;
+                let counter = 0;
+                document.querySelectorAll(query).forEach(element => {
+                    ordrehidden = element.querySelector('input[type="hidden"][id*="_ordre"]');
+                    if (ordrehidden) {
+                        ordrehidden.value = counter;
+                    }
+                    counter++
+                });
             },
         });
 

@@ -3,7 +3,7 @@ import BigPicture from "bigpicture";
 
 //example
 //<div data-controller="base--bigpicture" data-base--bigpicture-options-value='{"ytSrc": "P2pny4Nvojw"}' >
-//data-controller='base--bigpicture' data-base--bigpicture-options-value='{"imgSrc": "{{asset(Carousel.image)}}"}'
+//data-controller='base--bigpicture' data-base--bigpicture-options-value='{"imgSrc": "{{imagine_filter("grand"))}}"}'
 
 export default class extends Controller {
 

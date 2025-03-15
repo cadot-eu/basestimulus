@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 //Exemple d'utilisation sur un bouton
 // <button data-controller="base--form" data-base--form-url-value="/mon-lien">Mon lien</button>
 // Exemple d'utilisation sur un input
-// <input data-controller="base--form" data-base--form-url-value="/mon-lien" data-base--form-action-value="input">
+//  <input class="form-control me-2" type="search" autocomplete="off" name="search" data-controller="base--form" data-base--form-url-value="{{ path('¤entity¤_index') }}" data-base--form-action-value="input" data-base--form-query-value="search=" placeholder="Rechercher..." value="{{ app.request.get('search') }}">
 
 export default class extends Controller {
   static values = {
@@ -25,7 +25,11 @@ export default class extends Controller {
 
   visit() {
     if (this.urlValue) {
-      Turbo.visit(this.urlValue + '?' + this.queryValue + this.element.value);
+      if (this.actionValue == "input") {
+        Turbo.visit(this.urlValue + '?' + this.queryValue + this.element.value);
+      }
+      else
+        Turbo.visit(this.urlValue);
     }
   }
 }
